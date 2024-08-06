@@ -71,12 +71,26 @@ class DynamicReductionNetwork(nn.Module):
             return self.drn(data)
         #print(torch.zeros((data.xECAL.shape[0]),dtype=torch.int64,device=data.xECAL.device))
         #print(type(data))
-        
+        #print("XECAL before pushing into DRN", data.xECAL.shape)
+        #print(data.xECAL)
+        #print("XES before pushing into DRN", data.xES.shape)
+        #print(data.xES)
+        #print("X before pushing into DRN", data.x.shape)
+        #print(data.x)
+        #print("batch shape : ",data.batch.shape)
+        #print("#####################################################################################")
+
         return self.drn(
             data.xECAL,
             data.xES,
-            data.batch if hasattr(data, 'batch') else torch.zeros((data.xECAL.shape[0], ),
+            #data.num_nodes,
+
+            data.graph_x if hasattr(data, 'graph_x') else None,
+            data.xECAL_batch if hasattr(data, 'xECAL_batch') else torch.zeros((data.xECAL.shape[0], ),
                                                                   dtype=torch.int64,
                                                                   device=data.xECAL.device),
-            data.graph_x if hasattr(data, 'graph_x') else None
+            data.xES_batch if hasattr(data, 'xES_batch') else torch.zeros((data.xES.shape[0], ),
+                                                                  dtype=torch.int64,
+                                                                  device=data.xES.device),
+
         )

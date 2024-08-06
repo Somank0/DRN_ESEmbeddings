@@ -28,6 +28,8 @@ from torch_geometric.nn import (max_pool, max_pool_x, global_max_pool,
                                 avg_pool, avg_pool_x, global_mean_pool, 
                                 global_add_pool)
 
+from MyDataset import MyDataset
+
 transform = T.Cartesian(cat=False)
 
 def normalized_cut_2d(edge_index, pos):
@@ -220,20 +222,38 @@ class DynamicReductionNetworkJit(nn.Module):
         
         self.aggr_type = pool
 
-    def forward(self, xECAL: Tensor, xES: Tensor, batch: OptTensor, graph_x: OptTensor) -> Tensor:
+    def forward(self, xECAL: Tensor, xES: Tensor, graph_x: OptTensor, xECAL_batch: OptTensor,xES_batch: OptTensor) -> Tensor:
         '''
         Push the batch 'data' through the network
         '''
+        #print("xECAL before datanorm: ",xECAL.shape)
+        #print(xECAL)
+        #print("xES before datanorm: ",xES.shape)
+        #print(xES)
         xECAL = self.datanorm * xECAL
         xES = self.datanorm * xES
 
-        xECAL = self.inputnetECAL(xECAL)
-        xES = self.inputnetES(xES)
-        #print(xECAL.shape)
-        #print(xES.shape)
+        ECAL = self.inputnetECAL(xECAL)
+        ES = self.inputnetES(xES)
+        #print("xECAL after input net",xECAL.shape)
+        #print(xECAL)
+        #print("xES after input net",xES.shape)
+        #print(xES)
         #print(torch.cat((xECAL,xES),0))
-        x = torch.cat((xECAL,xES),0)
-
+        x = torch.cat((ECAL,ES),0)
+        #print("Concatenated x ",x.shape)
+        #print(x)
+        #print("Printing batch")
+        #print(batch)
+        #print("=====================================================================================")
+        #batch : Optional[torch.Tensor] = None
+        if xECAL_batch is not None and xES_batch is not None:
+            batch = torch.cat((xECAL_batch, xES_batch),0)
+        else :
+            batch=None
+        #batch = torch.tensor(batch)
+        #batch, sort_idxs = torch.sort(batch)
+        #x = x[sort_idxs]
         latent_probe = self.latent_probe
         
         if graph_x is not None:
