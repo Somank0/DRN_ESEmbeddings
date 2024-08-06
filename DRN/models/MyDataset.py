@@ -10,6 +10,4 @@ class MyDataset(Dataset):
     
     def __getitem__(self, idx):
         return self.xECAL[idx], self.xES[idx]
-    def __reduce__(self):
-        return (self.__class__, (self.xECAL, self.xES))
 

@@ -1,0 +1,3207 @@
+
+################ TRAINING ARGUMENTS ###################
+folder: /home/sosaha/test
+data_folder: /home/sosaha/Extractor_for_Merged/10K_test_pickles_new
+idx_name: all
+target: trueE
+ES: yes
+coords: cart
+loop: True
+pool: mean
+predfile: pred.pickle
+in_layers: 4
+agg_layers: 2
+mp_layers: 4
+out_layers: 2
+hidden_dim: 128
+device: 0
+train_batches: 500
+train_batch_size: 100
+valid_batch_size: 100
+acc_rate: 1
+loss_func: abs_energy_fraction_loss
+num_classes: 1
+n_epochs: 10
+lr_sched: Const
+max_lr: 0.0001
+min_lr: 1e-07
+restart_period: 10
+gamma: None
+thresh: None
+reg: None
+epsilon: None
+minalpha: None
+warm: None
+semiparam: False
+graph_features: []
+#######################################################
+1937 valid points
+7746 train points
+loading in features...
+	Took 0.590 seconds
+loading in target...
+	Took 0.001 seconds
+Matching targets with features...
+  0%|          | 0/9683 [00:00<?, ?it/s] 15%|█▌        | 1473/9683 [00:00<00:00, 14722.54it/s] 31%|███       | 2999/9683 [00:00<00:00, 15032.99it/s] 47%|████▋     | 4522/9683 [00:00<00:00, 15119.24it/s] 62%|██████▏   | 6050/9683 [00:00<00:00, 15180.53it/s] 78%|███████▊  | 7569/9683 [00:00<00:00, 15168.89it/s] 94%|█████████▍| 9086/9683 [00:00<00:00, 15131.92it/s]100%|██████████| 9683/9683 [00:00<00:00, 15068.43it/s]
+/home/sosaha/miniconda3/envs/ml/lib/python3.10/site-packages/torch_geometric/deprecation.py:22: UserWarning: 'data.DataLoader' is deprecated, use 'loader.DataLoader' instead
+  warnings.warn(out)
+/home/sosaha/miniconda3/envs/ml/lib/python3.10/site-packages/torch/nn/parallel/data_parallel.py:32: UserWarning: 
+    There is an imbalance between your GPUs. You may want to exclude GPU 0 which
+    has less than 75% of the memory or cores of GPU 1. You can do so by setting
+    the device_ids argument to DataParallel, or by setting the CUDA_VISIBLE_DEVICES
+    environment variable.
+  warnings.warn(imbalance_warn.format(device_ids[min_pos], device_ids[max_pos]))
+2024-07-30 17:44:10,147 - GNNTrainer - INFO - Model: 
+DataParallel(
+  (module): DynamicReductionNetwork(
+    (drn): RecursiveScriptModule(
+      original_name=DynamicReductionNetworkJit
+      (inputnetECAL): RecursiveScriptModule(
+        original_name=Sequential
+        (0): RecursiveScriptModule(original_name=Linear)
+        (1): RecursiveScriptModule(original_name=ELU)
+        (2): RecursiveScriptModule(original_name=Linear)
+        (3): RecursiveScriptModule(original_name=ELU)
+        (4): RecursiveScriptModule(original_name=Linear)
+        (5): RecursiveScriptModule(original_name=ELU)
+        (6): RecursiveScriptModule(original_name=Linear)
+        (7): RecursiveScriptModule(original_name=ELU)
+      )
+      (inputnetES): RecursiveScriptModule(
+        original_name=Sequential
+        (0): RecursiveScriptModule(original_name=Linear)
+        (1): RecursiveScriptModule(original_name=ELU)
+        (2): RecursiveScriptModule(original_name=Linear)
+        (3): RecursiveScriptModule(original_name=ELU)
+        (4): RecursiveScriptModule(original_name=Linear)
+        (5): RecursiveScriptModule(original_name=ELU)
+        (6): RecursiveScriptModule(original_name=Linear)
+        (7): RecursiveScriptModule(original_name=ELU)
+      )
+      (agg_layers): RecursiveScriptModule(
+        original_name=ModuleList
+        (0): RecursiveScriptModule(
+          original_name=EdgeConvJittable_3995b8
+          (aggr_module): RecursiveScriptModule(original_name=SumAggregation)
+          (nn): RecursiveScriptModule(
+            original_name=Sequential
+            (0): RecursiveScriptModule(original_name=Linear)
+            (1): RecursiveScriptModule(original_name=ELU)
+            (2): RecursiveScriptModule(original_name=Linear)
+            (3): RecursiveScriptModule(original_name=ELU)
+            (4): RecursiveScriptModule(original_name=Linear)
+            (5): RecursiveScriptModule(original_name=ELU)
+            (6): RecursiveScriptModule(original_name=Linear)
+            (7): RecursiveScriptModule(original_name=ELU)
+          )
+        )
+        (1): RecursiveScriptModule(
+          original_name=EdgeConvJittable_399d87
+          (aggr_module): RecursiveScriptModule(original_name=SumAggregation)
+          (nn): RecursiveScriptModule(
+            original_name=Sequential
+            (0): RecursiveScriptModule(original_name=Linear)
+            (1): RecursiveScriptModule(original_name=ELU)
+            (2): RecursiveScriptModule(original_name=Linear)
+            (3): RecursiveScriptModule(original_name=ELU)
+            (4): RecursiveScriptModule(original_name=Linear)
+            (5): RecursiveScriptModule(original_name=ELU)
+            (6): RecursiveScriptModule(original_name=Linear)
+            (7): RecursiveScriptModule(original_name=ELU)
+          )
+        )
+      )
+      (output): RecursiveScriptModule(
+        original_name=Sequential
+        (0): RecursiveScriptModule(original_name=Linear)
+        (1): RecursiveScriptModule(original_name=ELU)
+        (2): RecursiveScriptModule(original_name=Linear)
+      )
+    )
+  )
+)
+Parameters: 577541
+2024-07-30 17:44:10,147 - GNNTrainer - INFO - Epoch 0
+/home/sosaha/miniconda3/envs/ml/lib/python3.10/site-packages/torch/cuda/memory.py:303: FutureWarning: torch.cuda.reset_max_memory_allocated now calls torch.cuda.reset_peak_memory_stats, which resets /all/ peak memory stats.
+  warnings.warn(
+<torch_geometric.deprecation.DataLoader object at 0x7f6484ab4b80>
+datalen is 9683
+batch size is 100
+ES is yes and the number of features is 4
+Pooling with max
+Using self-loops
+There are 2 aggregation layers
+NUMBER OF CUDA CORES: 8
+<function abs_energy_fraction_loss at 0x7f6298949ea0>
+  0%|          | 0/78 [00:00<?, ?it/s]  0%|          | 0/78 [00:00<?, ?it/s]
+Traceback (most recent call last):
+  File "/home/sosaha/DRN_ESEmbeddings/DRN/train", line 415, in <module>
+    trainer.train()
+  File "/home/sosaha/DRN_ESEmbeddings/DRN/Train.py", line 324, in train
+    self.trainSummary = trainer.train(
+  File "/home/sosaha/DRN_ESEmbeddings/DRN/training/base.py", line 102, in train
+    sum_train = self.train_epoch(train_data_loader)            
+  File "/home/sosaha/DRN_ESEmbeddings/DRN/training/gnn.py", line 158, in train_epoch
+    for i,data in t:            
+  File "/home/sosaha/miniconda3/envs/ml/lib/python3.10/site-packages/tqdm/std.py", line 1181, in __iter__
+    for obj in iterable:
+  File "/home/sosaha/miniconda3/envs/ml/lib/python3.10/site-packages/torch/utils/data/dataloader.py", line 633, in __next__
+    data = self._next_data()
+  File "/home/sosaha/miniconda3/envs/ml/lib/python3.10/site-packages/torch/utils/data/dataloader.py", line 677, in _next_data
+    data = self._dataset_fetcher.fetch(index)  # may raise StopIteration
+  File "/home/sosaha/miniconda3/envs/ml/lib/python3.10/site-packages/torch/utils/data/_utils/fetch.py", line 54, in fetch
+    return self.collate_fn(data)
+  File "/home/sosaha/miniconda3/envs/ml/lib/python3.10/site-packages/torch_geometric/loader/dataloader.py", line 37, in __call__
+    raise TypeError(f'DataLoader found invalid type: {type(elem)}')
+TypeError: DataLoader found invalid type: <class 'MyDataset.MyDataset'>
+
+################ TRAINING ARGUMENTS ###################
+folder: /home/sosaha/test
+data_folder: /home/sosaha/Extractor_for_Merged/10K_test_pickles_new
+idx_name: all
+target: trueE
+ES: yes
+coords: cart
+loop: True
+pool: mean
+predfile: pred.pickle
+in_layers: 4
+agg_layers: 2
+mp_layers: 4
+out_layers: 2
+hidden_dim: 128
+device: 0
+train_batches: 500
+train_batch_size: 100
+valid_batch_size: 100
+acc_rate: 1
+loss_func: abs_energy_fraction_loss
+num_classes: 1
+n_epochs: 10
+lr_sched: Const
+max_lr: 0.0001
+min_lr: 1e-07
+restart_period: 10
+gamma: None
+thresh: None
+reg: None
+epsilon: None
+minalpha: None
+warm: None
+semiparam: False
+graph_features: []
+#######################################################
+1937 valid points
+7746 train points
+loading in features...
+	Took 1.240 seconds
+loading in target...
+	Took 0.003 seconds
+Matching targets with features...
+  0%|          | 0/9683 [00:00<?, ?it/s] 15%|█▍        | 1437/9683 [00:00<00:00, 14369.12it/s] 30%|███       | 2917/9683 [00:00<00:00, 14619.40it/s] 45%|████▌     | 4395/9683 [00:00<00:00, 14691.52it/s] 61%|██████    | 5865/9683 [00:00<00:00, 14694.11it/s] 76%|███████▌  | 7343/9683 [00:00<00:00, 14723.12it/s] 91%|█████████ | 8816/9683 [00:00<00:00, 14366.04it/s]100%|██████████| 9683/9683 [00:00<00:00, 14509.05it/s]
+/home/sosaha/miniconda3/envs/ml/lib/python3.10/site-packages/torch_geometric/deprecation.py:22: UserWarning: 'data.DataLoader' is deprecated, use 'loader.DataLoader' instead
+  warnings.warn(out)
+/home/sosaha/miniconda3/envs/ml/lib/python3.10/site-packages/torch/nn/parallel/data_parallel.py:32: UserWarning: 
+    There is an imbalance between your GPUs. You may want to exclude GPU 0 which
+    has less than 75% of the memory or cores of GPU 1. You can do so by setting
+    the device_ids argument to DataParallel, or by setting the CUDA_VISIBLE_DEVICES
+    environment variable.
+  warnings.warn(imbalance_warn.format(device_ids[min_pos], device_ids[max_pos]))
+2024-07-31 16:57:12,524 - GNNTrainer - INFO - Model: 
+DataParallel(
+  (module): DynamicReductionNetwork(
+    (drn): RecursiveScriptModule(
+      original_name=DynamicReductionNetworkJit
+      (inputnetECAL): RecursiveScriptModule(
+        original_name=Sequential
+        (0): RecursiveScriptModule(original_name=Linear)
+        (1): RecursiveScriptModule(original_name=ELU)
+        (2): RecursiveScriptModule(original_name=Linear)
+        (3): RecursiveScriptModule(original_name=ELU)
+        (4): RecursiveScriptModule(original_name=Linear)
+        (5): RecursiveScriptModule(original_name=ELU)
+        (6): RecursiveScriptModule(original_name=Linear)
+        (7): RecursiveScriptModule(original_name=ELU)
+      )
+      (inputnetES): RecursiveScriptModule(
+        original_name=Sequential
+        (0): RecursiveScriptModule(original_name=Linear)
+        (1): RecursiveScriptModule(original_name=ELU)
+        (2): RecursiveScriptModule(original_name=Linear)
+        (3): RecursiveScriptModule(original_name=ELU)
+        (4): RecursiveScriptModule(original_name=Linear)
+        (5): RecursiveScriptModule(original_name=ELU)
+        (6): RecursiveScriptModule(original_name=Linear)
+        (7): RecursiveScriptModule(original_name=ELU)
+      )
+      (agg_layers): RecursiveScriptModule(
+        original_name=ModuleList
+        (0): RecursiveScriptModule(
+          original_name=EdgeConvJittable_d47fad
+          (aggr_module): RecursiveScriptModule(original_name=SumAggregation)
+          (nn): RecursiveScriptModule(
+            original_name=Sequential
+            (0): RecursiveScriptModule(original_name=Linear)
+            (1): RecursiveScriptModule(original_name=ELU)
+            (2): RecursiveScriptModule(original_name=Linear)
+            (3): RecursiveScriptModule(original_name=ELU)
+            (4): RecursiveScriptModule(original_name=Linear)
+            (5): RecursiveScriptModule(original_name=ELU)
+            (6): RecursiveScriptModule(original_name=Linear)
+            (7): RecursiveScriptModule(original_name=ELU)
+          )
+        )
+        (1): RecursiveScriptModule(
+          original_name=EdgeConvJittable_d49877
+          (aggr_module): RecursiveScriptModule(original_name=SumAggregation)
+          (nn): RecursiveScriptModule(
+            original_name=Sequential
+            (0): RecursiveScriptModule(original_name=Linear)
+            (1): RecursiveScriptModule(original_name=ELU)
+            (2): RecursiveScriptModule(original_name=Linear)
+            (3): RecursiveScriptModule(original_name=ELU)
+            (4): RecursiveScriptModule(original_name=Linear)
+            (5): RecursiveScriptModule(original_name=ELU)
+            (6): RecursiveScriptModule(original_name=Linear)
+            (7): RecursiveScriptModule(original_name=ELU)
+          )
+        )
+      )
+      (output): RecursiveScriptModule(
+        original_name=Sequential
+        (0): RecursiveScriptModule(original_name=Linear)
+        (1): RecursiveScriptModule(original_name=ELU)
+        (2): RecursiveScriptModule(original_name=Linear)
+      )
+    )
+  )
+)
+Parameters: 577541
+2024-07-31 16:57:12,524 - GNNTrainer - INFO - Epoch 0
+/home/sosaha/miniconda3/envs/ml/lib/python3.10/site-packages/torch/cuda/memory.py:303: FutureWarning: torch.cuda.reset_max_memory_allocated now calls torch.cuda.reset_peak_memory_stats, which resets /all/ peak memory stats.
+  warnings.warn(
+<torch_geometric.deprecation.DataLoader object at 0x7fd10a8afdc0>
+datalen is 9683
+batch size is 100
+ES is yes and the number of features is 4
+Pooling with max
+Using self-loops
+There are 2 aggregation layers
+NUMBER OF CUDA CORES: 8
+<function abs_energy_fraction_loss at 0x7fcf1c6f5cf0>
+  0%|          | 0/78 [00:00<?, ?it/s]  0%|          | 0/78 [00:00<?, ?it/s]
+Traceback (most recent call last):
+  File "/home/sosaha/DRN_ESEmbeddings/DRN/train", line 415, in <module>
+    trainer.train()
+  File "/home/sosaha/DRN_ESEmbeddings/DRN/Train.py", line 326, in train
+    self.trainSummary = trainer.train(
+  File "/home/sosaha/DRN_ESEmbeddings/DRN/training/base.py", line 102, in train
+    sum_train = self.train_epoch(train_data_loader)            
+  File "/home/sosaha/DRN_ESEmbeddings/DRN/training/gnn.py", line 158, in train_epoch
+    for i,data in t:            
+  File "/home/sosaha/miniconda3/envs/ml/lib/python3.10/site-packages/tqdm/std.py", line 1181, in __iter__
+    for obj in iterable:
+  File "/home/sosaha/miniconda3/envs/ml/lib/python3.10/site-packages/torch/utils/data/dataloader.py", line 633, in __next__
+    data = self._next_data()
+  File "/home/sosaha/miniconda3/envs/ml/lib/python3.10/site-packages/torch/utils/data/dataloader.py", line 677, in _next_data
+    data = self._dataset_fetcher.fetch(index)  # may raise StopIteration
+  File "/home/sosaha/miniconda3/envs/ml/lib/python3.10/site-packages/torch/utils/data/_utils/fetch.py", line 54, in fetch
+    return self.collate_fn(data)
+  File "/home/sosaha/miniconda3/envs/ml/lib/python3.10/site-packages/torch_geometric/loader/dataloader.py", line 37, in __call__
+    raise TypeError(f'DataLoader found invalid type: {type(elem)}')
+TypeError: DataLoader found invalid type: <class 'MyDataset.MyDataset'>
+
+################ TRAINING ARGUMENTS ###################
+folder: /home/sosaha/test
+data_folder: /home/sosaha/Extractor_for_Merged/10K_test_pickles_new
+idx_name: all
+target: trueE
+ES: yes
+coords: cart
+loop: True
+pool: mean
+predfile: pred.pickle
+in_layers: 4
+agg_layers: 2
+mp_layers: 4
+out_layers: 2
+hidden_dim: 128
+device: 0
+train_batches: 500
+train_batch_size: 100
+valid_batch_size: 100
+acc_rate: 1
+loss_func: abs_energy_fraction_loss
+num_classes: 1
+n_epochs: 10
+lr_sched: Const
+max_lr: 0.0001
+min_lr: 1e-07
+restart_period: 10
+gamma: None
+thresh: None
+reg: None
+epsilon: None
+minalpha: None
+warm: None
+semiparam: False
+graph_features: []
+#######################################################
+1937 valid points
+7746 train points
+loading in features...
+	Took 1.219 seconds
+loading in target...
+	Took 0.003 seconds
+Matching targets with features...
+  0%|          | 0/9683 [00:00<?, ?it/s] 15%|█▌        | 1455/9683 [00:00<00:00, 14543.18it/s] 31%|███       | 2974/9683 [00:00<00:00, 14918.60it/s] 46%|████▋     | 4490/9683 [00:00<00:00, 15028.25it/s] 62%|██████▏   | 6001/9683 [00:00<00:00, 15057.97it/s] 78%|███████▊  | 7517/9683 [00:00<00:00, 15091.21it/s] 93%|█████████▎| 9027/9683 [00:00<00:00, 14927.96it/s]100%|██████████| 9683/9683 [00:00<00:00, 14950.01it/s]
+/home/sosaha/miniconda3/envs/ml/lib/python3.10/site-packages/torch_geometric/deprecation.py:22: UserWarning: 'data.DataLoader' is deprecated, use 'loader.DataLoader' instead
+  warnings.warn(out)
+/home/sosaha/miniconda3/envs/ml/lib/python3.10/site-packages/torch/nn/parallel/data_parallel.py:32: UserWarning: 
+    There is an imbalance between your GPUs. You may want to exclude GPU 0 which
+    has less than 75% of the memory or cores of GPU 1. You can do so by setting
+    the device_ids argument to DataParallel, or by setting the CUDA_VISIBLE_DEVICES
+    environment variable.
+  warnings.warn(imbalance_warn.format(device_ids[min_pos], device_ids[max_pos]))
+2024-07-31 17:02:09,443 - GNNTrainer - INFO - Model: 
+DataParallel(
+  (module): DynamicReductionNetwork(
+    (drn): RecursiveScriptModule(
+      original_name=DynamicReductionNetworkJit
+      (inputnetECAL): RecursiveScriptModule(
+        original_name=Sequential
+        (0): RecursiveScriptModule(original_name=Linear)
+        (1): RecursiveScriptModule(original_name=ELU)
+        (2): RecursiveScriptModule(original_name=Linear)
+        (3): RecursiveScriptModule(original_name=ELU)
+        (4): RecursiveScriptModule(original_name=Linear)
+        (5): RecursiveScriptModule(original_name=ELU)
+        (6): RecursiveScriptModule(original_name=Linear)
+        (7): RecursiveScriptModule(original_name=ELU)
+      )
+      (inputnetES): RecursiveScriptModule(
+        original_name=Sequential
+        (0): RecursiveScriptModule(original_name=Linear)
+        (1): RecursiveScriptModule(original_name=ELU)
+        (2): RecursiveScriptModule(original_name=Linear)
+        (3): RecursiveScriptModule(original_name=ELU)
+        (4): RecursiveScriptModule(original_name=Linear)
+        (5): RecursiveScriptModule(original_name=ELU)
+        (6): RecursiveScriptModule(original_name=Linear)
+        (7): RecursiveScriptModule(original_name=ELU)
+      )
+      (agg_layers): RecursiveScriptModule(
+        original_name=ModuleList
+        (0): RecursiveScriptModule(
+          original_name=EdgeConvJittable_8579f7
+          (aggr_module): RecursiveScriptModule(original_name=SumAggregation)
+          (nn): RecursiveScriptModule(
+            original_name=Sequential
+            (0): RecursiveScriptModule(original_name=Linear)
+            (1): RecursiveScriptModule(original_name=ELU)
+            (2): RecursiveScriptModule(original_name=Linear)
+            (3): RecursiveScriptModule(original_name=ELU)
+            (4): RecursiveScriptModule(original_name=Linear)
+            (5): RecursiveScriptModule(original_name=ELU)
+            (6): RecursiveScriptModule(original_name=Linear)
+            (7): RecursiveScriptModule(original_name=ELU)
+          )
+        )
+        (1): RecursiveScriptModule(
+          original_name=EdgeConvJittable_85932b
+          (aggr_module): RecursiveScriptModule(original_name=SumAggregation)
+          (nn): RecursiveScriptModule(
+            original_name=Sequential
+            (0): RecursiveScriptModule(original_name=Linear)
+            (1): RecursiveScriptModule(original_name=ELU)
+            (2): RecursiveScriptModule(original_name=Linear)
+            (3): RecursiveScriptModule(original_name=ELU)
+            (4): RecursiveScriptModule(original_name=Linear)
+            (5): RecursiveScriptModule(original_name=ELU)
+            (6): RecursiveScriptModule(original_name=Linear)
+            (7): RecursiveScriptModule(original_name=ELU)
+          )
+        )
+      )
+      (output): RecursiveScriptModule(
+        original_name=Sequential
+        (0): RecursiveScriptModule(original_name=Linear)
+        (1): RecursiveScriptModule(original_name=ELU)
+        (2): RecursiveScriptModule(original_name=Linear)
+      )
+    )
+  )
+)
+Parameters: 577541
+2024-07-31 17:02:09,443 - GNNTrainer - INFO - Epoch 0
+/home/sosaha/miniconda3/envs/ml/lib/python3.10/site-packages/torch/cuda/memory.py:303: FutureWarning: torch.cuda.reset_max_memory_allocated now calls torch.cuda.reset_peak_memory_stats, which resets /all/ peak memory stats.
+  warnings.warn(
+<torch_geometric.deprecation.DataLoader object at 0x7f92b5cb54b0>
+datalen is 9683
+batch size is 100
+ES is yes and the number of features is 4
+Pooling with max
+Using self-loops
+There are 2 aggregation layers
+NUMBER OF CUDA CORES: 8
+<function abs_energy_fraction_loss at 0x7f90c8b0dea0>
+  0%|          | 0/78 [00:00<?, ?it/s]  0%|          | 0/78 [00:00<?, ?it/s]
+Traceback (most recent call last):
+  File "/home/sosaha/DRN_ESEmbeddings/DRN/train", line 415, in <module>
+    trainer.train()
+  File "/home/sosaha/DRN_ESEmbeddings/DRN/Train.py", line 326, in train
+    self.trainSummary = trainer.train(
+  File "/home/sosaha/DRN_ESEmbeddings/DRN/training/base.py", line 102, in train
+    sum_train = self.train_epoch(train_data_loader)            
+  File "/home/sosaha/DRN_ESEmbeddings/DRN/training/gnn.py", line 158, in train_epoch
+    for i,data in t:            
+  File "/home/sosaha/miniconda3/envs/ml/lib/python3.10/site-packages/tqdm/std.py", line 1181, in __iter__
+    for obj in iterable:
+  File "/home/sosaha/miniconda3/envs/ml/lib/python3.10/site-packages/torch/utils/data/dataloader.py", line 633, in __next__
+    data = self._next_data()
+  File "/home/sosaha/miniconda3/envs/ml/lib/python3.10/site-packages/torch/utils/data/dataloader.py", line 677, in _next_data
+    data = self._dataset_fetcher.fetch(index)  # may raise StopIteration
+  File "/home/sosaha/miniconda3/envs/ml/lib/python3.10/site-packages/torch/utils/data/_utils/fetch.py", line 54, in fetch
+    return self.collate_fn(data)
+  File "/home/sosaha/miniconda3/envs/ml/lib/python3.10/site-packages/torch_geometric/loader/dataloader.py", line 37, in __call__
+    raise TypeError(f'DataLoader found invalid type: {type(elem)}')
+TypeError: DataLoader found invalid type: <class 'MyDataset.MyDataset'>
+
+################ TRAINING ARGUMENTS ###################
+folder: /home/sosaha/test
+data_folder: /home/sosaha/Extractor_for_Merged/10K_test_pickles_new
+idx_name: all
+target: trueE
+ES: yes
+coords: cart
+loop: True
+pool: mean
+predfile: pred.pickle
+in_layers: 4
+agg_layers: 2
+mp_layers: 4
+out_layers: 2
+hidden_dim: 128
+device: 0
+train_batches: 500
+train_batch_size: 100
+valid_batch_size: 100
+acc_rate: 1
+loss_func: abs_energy_fraction_loss
+num_classes: 1
+n_epochs: 10
+lr_sched: Const
+max_lr: 0.0001
+min_lr: 1e-07
+restart_period: 10
+gamma: None
+thresh: None
+reg: None
+epsilon: None
+minalpha: None
+warm: None
+semiparam: False
+graph_features: []
+#######################################################
+Traceback (most recent call last):
+  File "/home/sosaha/DRN_ESEmbeddings/DRN/train", line 404, in <module>
+    from Train import Train
+  File "/home/sosaha/DRN_ESEmbeddings/DRN/Train.py", line 180
+    with open('%s.pickle'% (fname,self.data) 'rb') as f:
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+SyntaxError: invalid syntax. Perhaps you forgot a comma?
+
+################ TRAINING ARGUMENTS ###################
+folder: /home/sosaha/test
+data_folder: /home/sosaha/Extractor_for_Merged/10K_test_pickles_new
+idx_name: all
+target: trueE
+ES: yes
+coords: cart
+loop: True
+pool: mean
+predfile: pred.pickle
+in_layers: 4
+agg_layers: 2
+mp_layers: 4
+out_layers: 2
+hidden_dim: 128
+device: 0
+train_batches: 500
+train_batch_size: 100
+valid_batch_size: 100
+acc_rate: 1
+loss_func: abs_energy_fraction_loss
+num_classes: 1
+n_epochs: 10
+lr_sched: Const
+max_lr: 0.0001
+min_lr: 1e-07
+restart_period: 10
+gamma: None
+thresh: None
+reg: None
+epsilon: None
+minalpha: None
+warm: None
+semiparam: False
+graph_features: []
+#######################################################
+1937 valid points
+7746 train points
+loading in features...
+Traceback (most recent call last):
+  File "/home/sosaha/DRN_ESEmbeddings/DRN/train", line 412, in <module>
+    trainer.loadFeatures(pased_args['predict_only'])
+  File "/home/sosaha/DRN_ESEmbeddings/DRN/Train.py", line 180, in loadFeatures
+    with open('%s.pickle'% (fname,self.data), 'rb') as f:
+AttributeError: 'Train' object has no attribute 'data'
+
+################ TRAINING ARGUMENTS ###################
+folder: /home/sosaha/test
+data_folder: /home/sosaha/Extractor_for_Merged/10K_test_pickles_new
+idx_name: all
+target: trueE
+ES: yes
+coords: cart
+loop: True
+pool: mean
+predfile: pred.pickle
+in_layers: 4
+agg_layers: 2
+mp_layers: 4
+out_layers: 2
+hidden_dim: 128
+device: 0
+train_batches: 500
+train_batch_size: 100
+valid_batch_size: 100
+acc_rate: 1
+loss_func: abs_energy_fraction_loss
+num_classes: 1
+n_epochs: 10
+lr_sched: Const
+max_lr: 0.0001
+min_lr: 1e-07
+restart_period: 10
+gamma: None
+thresh: None
+reg: None
+epsilon: None
+minalpha: None
+warm: None
+semiparam: False
+graph_features: []
+#######################################################
+1937 valid points
+7746 train points
+loading in features...
+	Took 1.276 seconds
+loading in target...
+	Took 0.003 seconds
+Matching targets with features...
+  0%|          | 0/9683 [00:00<?, ?it/s] 15%|█▍        | 1441/9683 [00:00<00:00, 14402.53it/s] 30%|███       | 2931/9683 [00:00<00:00, 14691.07it/s] 46%|████▌     | 4420/9683 [00:00<00:00, 14778.03it/s] 61%|██████    | 5911/9683 [00:00<00:00, 14827.09it/s] 76%|███████▋  | 7402/9683 [00:00<00:00, 14854.02it/s] 92%|█████████▏| 8888/9683 [00:00<00:00, 14460.76it/s]100%|██████████| 9683/9683 [00:00<00:00, 14610.26it/s]
+/home/sosaha/miniconda3/envs/ml/lib/python3.10/site-packages/torch_geometric/deprecation.py:22: UserWarning: 'data.DataLoader' is deprecated, use 'loader.DataLoader' instead
+  warnings.warn(out)
+/home/sosaha/miniconda3/envs/ml/lib/python3.10/site-packages/torch/nn/parallel/data_parallel.py:32: UserWarning: 
+    There is an imbalance between your GPUs. You may want to exclude GPU 0 which
+    has less than 75% of the memory or cores of GPU 1. You can do so by setting
+    the device_ids argument to DataParallel, or by setting the CUDA_VISIBLE_DEVICES
+    environment variable.
+  warnings.warn(imbalance_warn.format(device_ids[min_pos], device_ids[max_pos]))
+2024-07-31 17:13:12,584 - GNNTrainer - INFO - Model: 
+DataParallel(
+  (module): DynamicReductionNetwork(
+    (drn): RecursiveScriptModule(
+      original_name=DynamicReductionNetworkJit
+      (inputnetECAL): RecursiveScriptModule(
+        original_name=Sequential
+        (0): RecursiveScriptModule(original_name=Linear)
+        (1): RecursiveScriptModule(original_name=ELU)
+        (2): RecursiveScriptModule(original_name=Linear)
+        (3): RecursiveScriptModule(original_name=ELU)
+        (4): RecursiveScriptModule(original_name=Linear)
+        (5): RecursiveScriptModule(original_name=ELU)
+        (6): RecursiveScriptModule(original_name=Linear)
+        (7): RecursiveScriptModule(original_name=ELU)
+      )
+      (inputnetES): RecursiveScriptModule(
+        original_name=Sequential
+        (0): RecursiveScriptModule(original_name=Linear)
+        (1): RecursiveScriptModule(original_name=ELU)
+        (2): RecursiveScriptModule(original_name=Linear)
+        (3): RecursiveScriptModule(original_name=ELU)
+        (4): RecursiveScriptModule(original_name=Linear)
+        (5): RecursiveScriptModule(original_name=ELU)
+        (6): RecursiveScriptModule(original_name=Linear)
+        (7): RecursiveScriptModule(original_name=ELU)
+      )
+      (agg_layers): RecursiveScriptModule(
+        original_name=ModuleList
+        (0): RecursiveScriptModule(
+          original_name=EdgeConvJittable_10bd6d
+          (aggr_module): RecursiveScriptModule(original_name=SumAggregation)
+          (nn): RecursiveScriptModule(
+            original_name=Sequential
+            (0): RecursiveScriptModule(original_name=Linear)
+            (1): RecursiveScriptModule(original_name=ELU)
+            (2): RecursiveScriptModule(original_name=Linear)
+            (3): RecursiveScriptModule(original_name=ELU)
+            (4): RecursiveScriptModule(original_name=Linear)
+            (5): RecursiveScriptModule(original_name=ELU)
+            (6): RecursiveScriptModule(original_name=Linear)
+            (7): RecursiveScriptModule(original_name=ELU)
+          )
+        )
+        (1): RecursiveScriptModule(
+          original_name=EdgeConvJittable_10d617
+          (aggr_module): RecursiveScriptModule(original_name=SumAggregation)
+          (nn): RecursiveScriptModule(
+            original_name=Sequential
+            (0): RecursiveScriptModule(original_name=Linear)
+            (1): RecursiveScriptModule(original_name=ELU)
+            (2): RecursiveScriptModule(original_name=Linear)
+            (3): RecursiveScriptModule(original_name=ELU)
+            (4): RecursiveScriptModule(original_name=Linear)
+            (5): RecursiveScriptModule(original_name=ELU)
+            (6): RecursiveScriptModule(original_name=Linear)
+            (7): RecursiveScriptModule(original_name=ELU)
+          )
+        )
+      )
+      (output): RecursiveScriptModule(
+        original_name=Sequential
+        (0): RecursiveScriptModule(original_name=Linear)
+        (1): RecursiveScriptModule(original_name=ELU)
+        (2): RecursiveScriptModule(original_name=Linear)
+      )
+    )
+  )
+)
+Parameters: 577541
+2024-07-31 17:13:12,584 - GNNTrainer - INFO - Epoch 0
+/home/sosaha/miniconda3/envs/ml/lib/python3.10/site-packages/torch/cuda/memory.py:303: FutureWarning: torch.cuda.reset_max_memory_allocated now calls torch.cuda.reset_peak_memory_stats, which resets /all/ peak memory stats.
+  warnings.warn(
+<torch_geometric.deprecation.DataLoader object at 0x7fdf215b3dc0>
+datalen is 9683
+batch size is 100
+ES is yes and the number of features is 4
+Pooling with max
+Using self-loops
+There are 2 aggregation layers
+NUMBER OF CUDA CORES: 8
+<function abs_energy_fraction_loss at 0x7fdd34441f30>
+  0%|          | 0/78 [00:00<?, ?it/s]  0%|          | 0/78 [00:00<?, ?it/s]
+Traceback (most recent call last):
+  File "/home/sosaha/DRN_ESEmbeddings/DRN/train", line 415, in <module>
+    trainer.train()
+  File "/home/sosaha/DRN_ESEmbeddings/DRN/Train.py", line 326, in train
+    self.trainSummary = trainer.train(
+  File "/home/sosaha/DRN_ESEmbeddings/DRN/training/base.py", line 102, in train
+    sum_train = self.train_epoch(train_data_loader)            
+  File "/home/sosaha/DRN_ESEmbeddings/DRN/training/gnn.py", line 158, in train_epoch
+    for i,data in t:            
+  File "/home/sosaha/miniconda3/envs/ml/lib/python3.10/site-packages/tqdm/std.py", line 1181, in __iter__
+    for obj in iterable:
+  File "/home/sosaha/miniconda3/envs/ml/lib/python3.10/site-packages/torch/utils/data/dataloader.py", line 633, in __next__
+    data = self._next_data()
+  File "/home/sosaha/miniconda3/envs/ml/lib/python3.10/site-packages/torch/utils/data/dataloader.py", line 677, in _next_data
+    data = self._dataset_fetcher.fetch(index)  # may raise StopIteration
+  File "/home/sosaha/miniconda3/envs/ml/lib/python3.10/site-packages/torch/utils/data/_utils/fetch.py", line 54, in fetch
+    return self.collate_fn(data)
+  File "/home/sosaha/miniconda3/envs/ml/lib/python3.10/site-packages/torch_geometric/loader/dataloader.py", line 37, in __call__
+    raise TypeError(f'DataLoader found invalid type: {type(elem)}')
+TypeError: DataLoader found invalid type: <class 'MyDataset.MyDataset'>
+
+################ TRAINING ARGUMENTS ###################
+folder: /home/sosaha/test
+data_folder: /home/sosaha/Extractor_for_Merged/10K_test_pickles_new
+idx_name: all
+target: trueE
+ES: yes
+coords: cart
+loop: True
+pool: mean
+predfile: pred.pickle
+in_layers: 4
+agg_layers: 2
+mp_layers: 4
+out_layers: 2
+hidden_dim: 128
+device: 0
+train_batches: 500
+train_batch_size: 100
+valid_batch_size: 100
+acc_rate: 1
+loss_func: abs_energy_fraction_loss
+num_classes: 1
+n_epochs: 10
+lr_sched: Const
+max_lr: 0.0001
+min_lr: 1e-07
+restart_period: 10
+gamma: None
+thresh: None
+reg: None
+epsilon: None
+minalpha: None
+warm: None
+semiparam: False
+graph_features: []
+#######################################################
+1937 valid points
+7746 train points
+loading in features...
+	Took 1.236 seconds
+loading in target...
+	Took 0.003 seconds
+Matching targets with features...
+  0%|          | 0/9683 [00:00<?, ?it/s] 15%|█▌        | 1479/9683 [00:00<00:00, 14787.23it/s] 31%|███       | 3017/9683 [00:00<00:00, 15133.25it/s] 47%|████▋     | 4559/9683 [00:00<00:00, 15259.67it/s] 63%|██████▎   | 6098/9683 [00:00<00:00, 15307.98it/s] 79%|███████▉  | 7640/9683 [00:00<00:00, 15345.41it/s] 95%|█████████▍| 9175/9683 [00:00<00:00, 15159.95it/s]100%|██████████| 9683/9683 [00:00<00:00, 15183.37it/s]
+/home/sosaha/miniconda3/envs/ml/lib/python3.10/site-packages/torch_geometric/deprecation.py:22: UserWarning: 'data.DataLoader' is deprecated, use 'loader.DataLoader' instead
+  warnings.warn(out)
+/home/sosaha/miniconda3/envs/ml/lib/python3.10/site-packages/torch/nn/parallel/data_parallel.py:32: UserWarning: 
+    There is an imbalance between your GPUs. You may want to exclude GPU 0 which
+    has less than 75% of the memory or cores of GPU 1. You can do so by setting
+    the device_ids argument to DataParallel, or by setting the CUDA_VISIBLE_DEVICES
+    environment variable.
+  warnings.warn(imbalance_warn.format(device_ids[min_pos], device_ids[max_pos]))
+2024-07-31 17:13:33,441 - GNNTrainer - INFO - Model: 
+DataParallel(
+  (module): DynamicReductionNetwork(
+    (drn): RecursiveScriptModule(
+      original_name=DynamicReductionNetworkJit
+      (inputnetECAL): RecursiveScriptModule(
+        original_name=Sequential
+        (0): RecursiveScriptModule(original_name=Linear)
+        (1): RecursiveScriptModule(original_name=ELU)
+        (2): RecursiveScriptModule(original_name=Linear)
+        (3): RecursiveScriptModule(original_name=ELU)
+        (4): RecursiveScriptModule(original_name=Linear)
+        (5): RecursiveScriptModule(original_name=ELU)
+        (6): RecursiveScriptModule(original_name=Linear)
+        (7): RecursiveScriptModule(original_name=ELU)
+      )
+      (inputnetES): RecursiveScriptModule(
+        original_name=Sequential
+        (0): RecursiveScriptModule(original_name=Linear)
+        (1): RecursiveScriptModule(original_name=ELU)
+        (2): RecursiveScriptModule(original_name=Linear)
+        (3): RecursiveScriptModule(original_name=ELU)
+        (4): RecursiveScriptModule(original_name=Linear)
+        (5): RecursiveScriptModule(original_name=ELU)
+        (6): RecursiveScriptModule(original_name=Linear)
+        (7): RecursiveScriptModule(original_name=ELU)
+      )
+      (agg_layers): RecursiveScriptModule(
+        original_name=ModuleList
+        (0): RecursiveScriptModule(
+          original_name=EdgeConvJittable_1d2bba
+          (aggr_module): RecursiveScriptModule(original_name=SumAggregation)
+          (nn): RecursiveScriptModule(
+            original_name=Sequential
+            (0): RecursiveScriptModule(original_name=Linear)
+            (1): RecursiveScriptModule(original_name=ELU)
+            (2): RecursiveScriptModule(original_name=Linear)
+            (3): RecursiveScriptModule(original_name=ELU)
+            (4): RecursiveScriptModule(original_name=Linear)
+            (5): RecursiveScriptModule(original_name=ELU)
+            (6): RecursiveScriptModule(original_name=Linear)
+            (7): RecursiveScriptModule(original_name=ELU)
+          )
+        )
+        (1): RecursiveScriptModule(
+          original_name=EdgeConvJittable_1d44aa
+          (aggr_module): RecursiveScriptModule(original_name=SumAggregation)
+          (nn): RecursiveScriptModule(
+            original_name=Sequential
+            (0): RecursiveScriptModule(original_name=Linear)
+            (1): RecursiveScriptModule(original_name=ELU)
+            (2): RecursiveScriptModule(original_name=Linear)
+            (3): RecursiveScriptModule(original_name=ELU)
+            (4): RecursiveScriptModule(original_name=Linear)
+            (5): RecursiveScriptModule(original_name=ELU)
+            (6): RecursiveScriptModule(original_name=Linear)
+            (7): RecursiveScriptModule(original_name=ELU)
+          )
+        )
+      )
+      (output): RecursiveScriptModule(
+        original_name=Sequential
+        (0): RecursiveScriptModule(original_name=Linear)
+        (1): RecursiveScriptModule(original_name=ELU)
+        (2): RecursiveScriptModule(original_name=Linear)
+      )
+    )
+  )
+)
+Parameters: 577541
+2024-07-31 17:13:33,441 - GNNTrainer - INFO - Epoch 0
+/home/sosaha/miniconda3/envs/ml/lib/python3.10/site-packages/torch/cuda/memory.py:303: FutureWarning: torch.cuda.reset_max_memory_allocated now calls torch.cuda.reset_peak_memory_stats, which resets /all/ peak memory stats.
+  warnings.warn(
+<torch_geometric.deprecation.DataLoader object at 0x7fb4309b94b0>
+datalen is 9683
+batch size is 100
+ES is yes and the number of features is 4
+Pooling with max
+Using self-loops
+There are 2 aggregation layers
+NUMBER OF CUDA CORES: 8
+<function abs_energy_fraction_loss at 0x7fb2448760e0>
+  0%|          | 0/78 [00:00<?, ?it/s]  0%|          | 0/78 [00:00<?, ?it/s]
+Traceback (most recent call last):
+  File "/home/sosaha/DRN_ESEmbeddings/DRN/train", line 415, in <module>
+    trainer.train()
+  File "/home/sosaha/DRN_ESEmbeddings/DRN/Train.py", line 326, in train
+    self.trainSummary = trainer.train(
+  File "/home/sosaha/DRN_ESEmbeddings/DRN/training/base.py", line 102, in train
+    sum_train = self.train_epoch(train_data_loader)            
+  File "/home/sosaha/DRN_ESEmbeddings/DRN/training/gnn.py", line 158, in train_epoch
+    for i,data in t:            
+  File "/home/sosaha/miniconda3/envs/ml/lib/python3.10/site-packages/tqdm/std.py", line 1181, in __iter__
+    for obj in iterable:
+  File "/home/sosaha/miniconda3/envs/ml/lib/python3.10/site-packages/torch/utils/data/dataloader.py", line 633, in __next__
+    data = self._next_data()
+  File "/home/sosaha/miniconda3/envs/ml/lib/python3.10/site-packages/torch/utils/data/dataloader.py", line 677, in _next_data
+    data = self._dataset_fetcher.fetch(index)  # may raise StopIteration
+  File "/home/sosaha/miniconda3/envs/ml/lib/python3.10/site-packages/torch/utils/data/_utils/fetch.py", line 54, in fetch
+    return self.collate_fn(data)
+  File "/home/sosaha/miniconda3/envs/ml/lib/python3.10/site-packages/torch_geometric/loader/dataloader.py", line 37, in __call__
+    raise TypeError(f'DataLoader found invalid type: {type(elem)}')
+TypeError: DataLoader found invalid type: <class 'MyDataset.MyDataset'>
+
+################ TRAINING ARGUMENTS ###################
+folder: /home/sosaha/test
+data_folder: /home/sosaha/Extractor_for_Merged/10K_test_pickles_new
+idx_name: all
+target: trueE
+ES: yes
+coords: cart
+loop: True
+pool: mean
+predfile: pred.pickle
+in_layers: 4
+agg_layers: 2
+mp_layers: 4
+out_layers: 2
+hidden_dim: 128
+device: 0
+train_batches: 500
+train_batch_size: 100
+valid_batch_size: 100
+acc_rate: 1
+loss_func: abs_energy_fraction_loss
+num_classes: 1
+n_epochs: 10
+lr_sched: Const
+max_lr: 0.0001
+min_lr: 1e-07
+restart_period: 10
+gamma: None
+thresh: None
+reg: None
+epsilon: None
+minalpha: None
+warm: None
+semiparam: False
+graph_features: []
+#######################################################
+1937 valid points
+7746 train points
+loading in features...
+	Took 1.250 seconds
+loading in target...
+	Took 0.003 seconds
+Matching targets with features...
+  0%|          | 0/9683 [00:00<?, ?it/s] 15%|█▍        | 1452/9683 [00:00<00:00, 14517.66it/s] 31%|███       | 2962/9683 [00:00<00:00, 14854.32it/s] 46%|████▌     | 4477/9683 [00:00<00:00, 14987.19it/s] 62%|██████▏   | 5991/9683 [00:00<00:00, 15046.36it/s] 78%|███████▊  | 7511/9683 [00:00<00:00, 15098.97it/s] 93%|█████████▎| 9021/9683 [00:00<00:00, 14709.19it/s]100%|██████████| 9683/9683 [00:00<00:00, 14840.93it/s]
+/home/sosaha/miniconda3/envs/ml/lib/python3.10/site-packages/torch_geometric/deprecation.py:22: UserWarning: 'data.DataLoader' is deprecated, use 'loader.DataLoader' instead
+  warnings.warn(out)
+<torch_geometric.deprecation.DataLoader object at 0x7fe016eb54b0>
+datalen is 9683
+batch size is 100
+ES is yes and the number of features is 4
+Pooling with max
+Using self-loops
+There are 2 aggregation layers
+Traceback (most recent call last):
+  File "/home/sosaha/DRN_ESEmbeddings/DRN/train", line 415, in <module>
+    trainer.train()
+  File "/home/sosaha/DRN_ESEmbeddings/DRN/Train.py", line 298, in train
+    trainer.build_model(
+  File "/home/sosaha/DRN_ESEmbeddings/DRN/training/gnn.py", line 48, in build_model
+    self.model = get_model(name=name, actually_jit=True, **model_args).to(self.device)
+  File "/home/sosaha/DRN_ESEmbeddings/DRN/models/__init__.py", line 35, in get_model
+    return _models[name](**model_args)
+  File "/home/sosaha/DRN_ESEmbeddings/DRN/models/DynamicReductionNetwork.py", line 60, in __init__
+    self.drn = torch.jit.script(drn)
+  File "/home/sosaha/miniconda3/envs/ml/lib/python3.10/site-packages/torch/jit/_script.py", line 1284, in script
+    return torch.jit._recursive.create_script_module(
+  File "/home/sosaha/miniconda3/envs/ml/lib/python3.10/site-packages/torch/jit/_recursive.py", line 480, in create_script_module
+    return create_script_module_impl(nn_module, concrete_type, stubs_fn)
+  File "/home/sosaha/miniconda3/envs/ml/lib/python3.10/site-packages/torch/jit/_recursive.py", line 546, in create_script_module_impl
+    create_methods_and_properties_from_stubs(concrete_type, method_stubs, property_stubs)
+  File "/home/sosaha/miniconda3/envs/ml/lib/python3.10/site-packages/torch/jit/_recursive.py", line 397, in create_methods_and_properties_from_stubs
+    concrete_type._create_methods_and_properties(property_defs, property_rcbs, method_defs, method_rcbs, method_defaults)
+RuntimeError: 
+Variable 'batch' previously had type Tensor but is now being assigned to a value of type Optional[Tensor]
+:
+  File "/home/sosaha/DRN_ESEmbeddings/DRN/models/DynamicReductionNetworkJit.py", line 273
+    
+            if i == nAgg - 1:
+                x, batch = aggr_pool_x(cluster, x, batch, self.aggr_type)
+                   ~~~~~ <--- HERE
+            else:
+                x, batch = aggr_pool(cluster, x, batch, self.aggr_type)
+
+
+################ TRAINING ARGUMENTS ###################
+folder: /home/sosaha/test
+data_folder: /home/sosaha/Extractor_for_Merged/10K_test_pickles_new
+idx_name: all
+target: trueE
+ES: yes
+coords: cart
+loop: True
+pool: mean
+predfile: pred.pickle
+in_layers: 4
+agg_layers: 2
+mp_layers: 4
+out_layers: 2
+hidden_dim: 128
+device: 0
+train_batches: 500
+train_batch_size: 100
+valid_batch_size: 100
+acc_rate: 1
+loss_func: abs_energy_fraction_loss
+num_classes: 1
+n_epochs: 10
+lr_sched: Const
+max_lr: 0.0001
+min_lr: 1e-07
+restart_period: 10
+gamma: None
+thresh: None
+reg: None
+epsilon: None
+minalpha: None
+warm: None
+semiparam: False
+graph_features: []
+#######################################################
+1937 valid points
+7746 train points
+loading in features...
+	Took 1.247 seconds
+loading in target...
+	Took 0.003 seconds
+Matching targets with features...
+  0%|          | 0/9683 [00:00<?, ?it/s] 15%|█▍        | 1437/9683 [00:00<00:00, 14369.02it/s] 30%|███       | 2935/9683 [00:00<00:00, 14726.89it/s] 46%|████▌     | 4436/9683 [00:00<00:00, 14854.11it/s] 61%|██████▏   | 5934/9683 [00:00<00:00, 14902.34it/s] 77%|███████▋  | 7439/9683 [00:00<00:00, 14952.55it/s] 92%|█████████▏| 8935/9683 [00:00<00:00, 14740.33it/s]100%|██████████| 9683/9683 [00:00<00:00, 14771.66it/s]
+/home/sosaha/miniconda3/envs/ml/lib/python3.10/site-packages/torch_geometric/deprecation.py:22: UserWarning: 'data.DataLoader' is deprecated, use 'loader.DataLoader' instead
+  warnings.warn(out)
+<torch_geometric.deprecation.DataLoader object at 0x7fd24a2b54b0>
+datalen is 9683
+batch size is 100
+ES is yes and the number of features is 4
+Pooling with max
+Using self-loops
+There are 2 aggregation layers
+Traceback (most recent call last):
+  File "/home/sosaha/DRN_ESEmbeddings/DRN/train", line 415, in <module>
+    trainer.train()
+  File "/home/sosaha/DRN_ESEmbeddings/DRN/Train.py", line 298, in train
+    trainer.build_model(
+  File "/home/sosaha/DRN_ESEmbeddings/DRN/training/gnn.py", line 48, in build_model
+    self.model = get_model(name=name, actually_jit=True, **model_args).to(self.device)
+  File "/home/sosaha/DRN_ESEmbeddings/DRN/models/__init__.py", line 35, in get_model
+    return _models[name](**model_args)
+  File "/home/sosaha/DRN_ESEmbeddings/DRN/models/DynamicReductionNetwork.py", line 60, in __init__
+    self.drn = torch.jit.script(drn)
+  File "/home/sosaha/miniconda3/envs/ml/lib/python3.10/site-packages/torch/jit/_script.py", line 1284, in script
+    return torch.jit._recursive.create_script_module(
+  File "/home/sosaha/miniconda3/envs/ml/lib/python3.10/site-packages/torch/jit/_recursive.py", line 480, in create_script_module
+    return create_script_module_impl(nn_module, concrete_type, stubs_fn)
+  File "/home/sosaha/miniconda3/envs/ml/lib/python3.10/site-packages/torch/jit/_recursive.py", line 546, in create_script_module_impl
+    create_methods_and_properties_from_stubs(concrete_type, method_stubs, property_stubs)
+  File "/home/sosaha/miniconda3/envs/ml/lib/python3.10/site-packages/torch/jit/_recursive.py", line 397, in create_methods_and_properties_from_stubs
+    concrete_type._create_methods_and_properties(property_defs, property_rcbs, method_defs, method_rcbs, method_defaults)
+RuntimeError: 
+Arguments for call are not valid.
+The following variants are available:
+  
+  aten::sort(Tensor self, int dim=-1, bool descending=False) -> (Tensor values, Tensor indices):
+  Expected a value of type 'Tensor' for argument 'self' but instead found type 'Optional[Tensor]'.
+  
+  aten::sort.stable(Tensor self, *, bool? stable, int dim=-1, bool descending=False) -> (Tensor values, Tensor indices):
+  Expected a value of type 'Tensor' for argument 'self' but instead found type 'Optional[Tensor]'.
+  
+  aten::sort.values_stable(Tensor self, *, bool? stable, int dim=-1, bool descending=False, Tensor(a!) values, Tensor(b!) indices) -> (Tensor(a!) values, Tensor(b!) indices):
+  Expected a value of type 'Tensor' for argument 'self' but instead found type 'Optional[Tensor]'.
+  
+  aten::sort.values(Tensor self, int dim=-1, bool descending=False, *, Tensor(a!) values, Tensor(b!) indices) -> (Tensor(a!) values, Tensor(b!) indices):
+  Expected a value of type 'Tensor' for argument 'self' but instead found type 'Optional[Tensor]'.
+  
+  aten::sort.dimname(Tensor self, str dim, bool descending=False) -> (Tensor values, Tensor indices):
+  Expected a value of type 'Tensor' for argument 'self' but instead found type 'Optional[Tensor]'.
+  
+  aten::sort.dimname_values(Tensor self, str dim, bool descending=False, *, Tensor(a!) values, Tensor(b!) indices) -> (Tensor(a!) values, Tensor(b!) indices):
+  Expected a value of type 'Tensor' for argument 'self' but instead found type 'Optional[Tensor]'.
+  
+  aten::sort.dimname_stable(Tensor self, *, bool? stable, str dim, bool descending=False) -> (Tensor values, Tensor indices):
+  Expected a value of type 'Tensor' for argument 'self' but instead found type 'Optional[Tensor]'.
+  
+  aten::sort.dimname_values_stable(Tensor self, *, bool? stable, str dim, bool descending=False, Tensor(a!) values, Tensor(b!) indices) -> (Tensor(a!) values, Tensor(b!) indices):
+  Expected a value of type 'Tensor' for argument 'self' but instead found type 'Optional[Tensor]'.
+  
+  aten::sort.int(int[](a!) self, bool reverse=False) -> ():
+  Expected a value of type 'List[int]' for argument 'self' but instead found type 'Optional[Tensor]'.
+  
+  aten::sort.float(float[](a!) self, bool reverse=False) -> ():
+  Expected a value of type 'List[float]' for argument 'self' but instead found type 'Optional[Tensor]'.
+  
+  aten::sort.Tensor(Tensor[](a!) self, bool reverse=False) -> ():
+  Expected a value of type 'List[Tensor]' for argument 'self' but instead found type 'Optional[Tensor]'.
+  
+  aten::sort.bool(bool[](a!) self, bool reverse=False) -> ():
+  Expected a value of type 'List[bool]' for argument 'self' but instead found type 'Optional[Tensor]'.
+  
+  aten::sort.str(str[](a!) self, bool reverse=False) -> ():
+  Expected a value of type 'List[str]' for argument 'self' but instead found type 'Optional[Tensor]'.
+  
+  aten::sort.any(t[](a!) self, bool reverse=False) -> ():
+  Could not match type Optional[Tensor] to List[t] in argument 'self': Cannot match List[t] to Optional[Tensor].
+
+The original call is:
+  File "/home/sosaha/DRN_ESEmbeddings/DRN/models/DynamicReductionNetworkJit.py", line 253
+        else :
+            batch=None
+        batch, sort_idxs = torch.sort(batch)
+                           ~~~~~~~~~~ <--- HERE
+        x = x[sort_idxs]
+        latent_probe = self.latent_probe
+
+
+################ TRAINING ARGUMENTS ###################
+folder: /home/sosaha/test
+data_folder: /home/sosaha/Extractor_for_Merged/10K_test_pickles_new
+idx_name: all
+target: trueE
+ES: yes
+coords: cart
+loop: True
+pool: mean
+predfile: pred.pickle
+in_layers: 4
+agg_layers: 2
+mp_layers: 4
+out_layers: 2
+hidden_dim: 128
+device: 0
+train_batches: 500
+train_batch_size: 100
+valid_batch_size: 100
+acc_rate: 1
+loss_func: abs_energy_fraction_loss
+num_classes: 1
+n_epochs: 10
+lr_sched: Const
+max_lr: 0.0001
+min_lr: 1e-07
+restart_period: 10
+gamma: None
+thresh: None
+reg: None
+epsilon: None
+minalpha: None
+warm: None
+semiparam: False
+graph_features: []
+#######################################################
+1937 valid points
+7746 train points
+loading in features...
+	Took 1.221 seconds
+loading in target...
+	Took 0.003 seconds
+Matching targets with features...
+  0%|          | 0/9683 [00:00<?, ?it/s] 15%|█▌        | 1470/9683 [00:00<00:00, 14697.74it/s] 31%|███       | 2999/9683 [00:00<00:00, 15045.14it/s] 47%|████▋     | 4526/9683 [00:00<00:00, 15146.96it/s] 63%|██████▎   | 6058/9683 [00:00<00:00, 15214.53it/s] 78%|███████▊  | 7591/9683 [00:00<00:00, 15255.23it/s] 94%|█████████▍| 9117/9683 [00:00<00:00, 14982.79it/s]100%|██████████| 9683/9683 [00:00<00:00, 15049.87it/s]
+/home/sosaha/miniconda3/envs/ml/lib/python3.10/site-packages/torch_geometric/deprecation.py:22: UserWarning: 'data.DataLoader' is deprecated, use 'loader.DataLoader' instead
+  warnings.warn(out)
+<torch_geometric.deprecation.DataLoader object at 0x7f2dd48b54b0>
+datalen is 9683
+batch size is 100
+ES is yes and the number of features is 4
+Pooling with max
+Using self-loops
+There are 2 aggregation layers
+Traceback (most recent call last):
+  File "/home/sosaha/DRN_ESEmbeddings/DRN/train", line 415, in <module>
+    trainer.train()
+  File "/home/sosaha/DRN_ESEmbeddings/DRN/Train.py", line 298, in train
+    trainer.build_model(
+  File "/home/sosaha/DRN_ESEmbeddings/DRN/training/gnn.py", line 48, in build_model
+    self.model = get_model(name=name, actually_jit=True, **model_args).to(self.device)
+  File "/home/sosaha/DRN_ESEmbeddings/DRN/models/__init__.py", line 35, in get_model
+    return _models[name](**model_args)
+  File "/home/sosaha/DRN_ESEmbeddings/DRN/models/DynamicReductionNetwork.py", line 60, in __init__
+    self.drn = torch.jit.script(drn)
+  File "/home/sosaha/miniconda3/envs/ml/lib/python3.10/site-packages/torch/jit/_script.py", line 1284, in script
+    return torch.jit._recursive.create_script_module(
+  File "/home/sosaha/miniconda3/envs/ml/lib/python3.10/site-packages/torch/jit/_recursive.py", line 480, in create_script_module
+    return create_script_module_impl(nn_module, concrete_type, stubs_fn)
+  File "/home/sosaha/miniconda3/envs/ml/lib/python3.10/site-packages/torch/jit/_recursive.py", line 546, in create_script_module_impl
+    create_methods_and_properties_from_stubs(concrete_type, method_stubs, property_stubs)
+  File "/home/sosaha/miniconda3/envs/ml/lib/python3.10/site-packages/torch/jit/_recursive.py", line 397, in create_methods_and_properties_from_stubs
+    concrete_type._create_methods_and_properties(property_defs, property_rcbs, method_defs, method_rcbs, method_defaults)
+RuntimeError: 
+Arguments for call are not valid.
+The following variants are available:
+  
+  aten::tensor.float(float t, *, ScalarType? dtype=None, Device? device=None, bool requires_grad=False) -> Tensor:
+  Expected a value of type 'float' for argument 't' but instead found type 'Optional[Tensor]'.
+  
+  aten::tensor.int(int t, *, ScalarType? dtype=None, Device? device=None, bool requires_grad=False) -> Tensor:
+  Expected a value of type 'int' for argument 't' but instead found type 'Optional[Tensor]'.
+  
+  aten::tensor.bool(bool t, *, ScalarType? dtype=None, Device? device=None, bool requires_grad=False) -> Tensor:
+  Expected a value of type 'bool' for argument 't' but instead found type 'Optional[Tensor]'.
+  
+  aten::tensor.complex(complex t, *, ScalarType? dtype=None, Device? device=None, bool requires_grad=False) -> Tensor:
+  Expected a value of type 'complex' for argument 't' but instead found type 'Optional[Tensor]'.
+  
+  aten::tensor(t[] data, *, ScalarType? dtype=None, Device? device=None, bool requires_grad=False) -> Tensor:
+  Could not match type Optional[Tensor] to List[t] in argument 'data': Cannot match List[t] to Optional[Tensor].
+
+The original call is:
+  File "/home/sosaha/DRN_ESEmbeddings/DRN/models/DynamicReductionNetworkJit.py", line 253
+        else :
+            batch=None
+        batch = torch.tensor(batch)
+                ~~~~~~~~~~~~ <--- HERE
+    
+        batch, sort_idxs = torch.sort(batch)
+
+
+################ TRAINING ARGUMENTS ###################
+folder: /home/sosaha/test
+data_folder: /home/sosaha/Extractor_for_Merged/10K_test_pickles_new
+idx_name: all
+target: trueE
+ES: yes
+coords: cart
+loop: True
+pool: mean
+predfile: pred.pickle
+in_layers: 4
+agg_layers: 2
+mp_layers: 4
+out_layers: 2
+hidden_dim: 128
+device: 0
+train_batches: 500
+train_batch_size: 100
+valid_batch_size: 100
+acc_rate: 1
+loss_func: abs_energy_fraction_loss
+num_classes: 1
+n_epochs: 10
+lr_sched: Const
+max_lr: 0.0001
+min_lr: 1e-07
+restart_period: 10
+gamma: None
+thresh: None
+reg: None
+epsilon: None
+minalpha: None
+warm: None
+semiparam: False
+graph_features: []
+#######################################################
+1937 valid points
+7746 train points
+loading in features...
+	Took 1.237 seconds
+loading in target...
+	Took 0.002 seconds
+Matching targets with features...
+  0%|          | 0/9683 [00:00<?, ?it/s] 15%|█▌        | 1454/9683 [00:00<00:00, 14531.04it/s] 31%|███       | 2966/9683 [00:00<00:00, 14874.45it/s] 46%|████▌     | 4476/9683 [00:00<00:00, 14976.08it/s] 62%|██████▏   | 5992/9683 [00:00<00:00, 15047.75it/s] 77%|███████▋  | 7500/9683 [00:00<00:00, 15057.25it/s] 93%|█████████▎| 9006/9683 [00:00<00:00, 14998.58it/s]100%|██████████| 9683/9683 [00:00<00:00, 14982.55it/s]
+/home/sosaha/miniconda3/envs/ml/lib/python3.10/site-packages/torch_geometric/deprecation.py:22: UserWarning: 'data.DataLoader' is deprecated, use 'loader.DataLoader' instead
+  warnings.warn(out)
+<torch_geometric.deprecation.DataLoader object at 0x7f20f78b54b0>
+datalen is 9683
+batch size is 100
+ES is yes and the number of features is 4
+Pooling with max
+Using self-loops
+There are 2 aggregation layers
+Traceback (most recent call last):
+  File "/home/sosaha/DRN_ESEmbeddings/DRN/train", line 415, in <module>
+    trainer.train()
+  File "/home/sosaha/DRN_ESEmbeddings/DRN/Train.py", line 298, in train
+    trainer.build_model(
+  File "/home/sosaha/DRN_ESEmbeddings/DRN/training/gnn.py", line 48, in build_model
+    self.model = get_model(name=name, actually_jit=True, **model_args).to(self.device)
+  File "/home/sosaha/DRN_ESEmbeddings/DRN/models/__init__.py", line 35, in get_model
+    return _models[name](**model_args)
+  File "/home/sosaha/DRN_ESEmbeddings/DRN/models/DynamicReductionNetwork.py", line 60, in __init__
+    self.drn = torch.jit.script(drn)
+  File "/home/sosaha/miniconda3/envs/ml/lib/python3.10/site-packages/torch/jit/_script.py", line 1284, in script
+    return torch.jit._recursive.create_script_module(
+  File "/home/sosaha/miniconda3/envs/ml/lib/python3.10/site-packages/torch/jit/_recursive.py", line 480, in create_script_module
+    return create_script_module_impl(nn_module, concrete_type, stubs_fn)
+  File "/home/sosaha/miniconda3/envs/ml/lib/python3.10/site-packages/torch/jit/_recursive.py", line 546, in create_script_module_impl
+    create_methods_and_properties_from_stubs(concrete_type, method_stubs, property_stubs)
+  File "/home/sosaha/miniconda3/envs/ml/lib/python3.10/site-packages/torch/jit/_recursive.py", line 397, in create_methods_and_properties_from_stubs
+    concrete_type._create_methods_and_properties(property_defs, property_rcbs, method_defs, method_rcbs, method_defaults)
+RuntimeError: 
+Arguments for call are not valid.
+The following variants are available:
+  
+  aten::sort(Tensor self, int dim=-1, bool descending=False) -> (Tensor values, Tensor indices):
+  Expected a value of type 'Tensor' for argument 'self' but instead found type 'Optional[Tensor]'.
+  
+  aten::sort.stable(Tensor self, *, bool? stable, int dim=-1, bool descending=False) -> (Tensor values, Tensor indices):
+  Expected a value of type 'Tensor' for argument 'self' but instead found type 'Optional[Tensor]'.
+  
+  aten::sort.values_stable(Tensor self, *, bool? stable, int dim=-1, bool descending=False, Tensor(a!) values, Tensor(b!) indices) -> (Tensor(a!) values, Tensor(b!) indices):
+  Expected a value of type 'Tensor' for argument 'self' but instead found type 'Optional[Tensor]'.
+  
+  aten::sort.values(Tensor self, int dim=-1, bool descending=False, *, Tensor(a!) values, Tensor(b!) indices) -> (Tensor(a!) values, Tensor(b!) indices):
+  Expected a value of type 'Tensor' for argument 'self' but instead found type 'Optional[Tensor]'.
+  
+  aten::sort.dimname(Tensor self, str dim, bool descending=False) -> (Tensor values, Tensor indices):
+  Expected a value of type 'Tensor' for argument 'self' but instead found type 'Optional[Tensor]'.
+  
+  aten::sort.dimname_values(Tensor self, str dim, bool descending=False, *, Tensor(a!) values, Tensor(b!) indices) -> (Tensor(a!) values, Tensor(b!) indices):
+  Expected a value of type 'Tensor' for argument 'self' but instead found type 'Optional[Tensor]'.
+  
+  aten::sort.dimname_stable(Tensor self, *, bool? stable, str dim, bool descending=False) -> (Tensor values, Tensor indices):
+  Expected a value of type 'Tensor' for argument 'self' but instead found type 'Optional[Tensor]'.
+  
+  aten::sort.dimname_values_stable(Tensor self, *, bool? stable, str dim, bool descending=False, Tensor(a!) values, Tensor(b!) indices) -> (Tensor(a!) values, Tensor(b!) indices):
+  Expected a value of type 'Tensor' for argument 'self' but instead found type 'Optional[Tensor]'.
+  
+  aten::sort.int(int[](a!) self, bool reverse=False) -> ():
+  Expected a value of type 'List[int]' for argument 'self' but instead found type 'Optional[Tensor]'.
+  
+  aten::sort.float(float[](a!) self, bool reverse=False) -> ():
+  Expected a value of type 'List[float]' for argument 'self' but instead found type 'Optional[Tensor]'.
+  
+  aten::sort.Tensor(Tensor[](a!) self, bool reverse=False) -> ():
+  Expected a value of type 'List[Tensor]' for argument 'self' but instead found type 'Optional[Tensor]'.
+  
+  aten::sort.bool(bool[](a!) self, bool reverse=False) -> ():
+  Expected a value of type 'List[bool]' for argument 'self' but instead found type 'Optional[Tensor]'.
+  
+  aten::sort.str(str[](a!) self, bool reverse=False) -> ():
+  Expected a value of type 'List[str]' for argument 'self' but instead found type 'Optional[Tensor]'.
+  
+  aten::sort.any(t[](a!) self, bool reverse=False) -> ():
+  Could not match type Optional[Tensor] to List[t] in argument 'self': Cannot match List[t] to Optional[Tensor].
+
+The original call is:
+  File "/home/sosaha/DRN_ESEmbeddings/DRN/models/DynamicReductionNetworkJit.py", line 255
+        #batch = torch.tensor(batch)
+    
+        batch, sort_idxs = torch.sort(batch)
+                           ~~~~~~~~~~ <--- HERE
+        x = x[sort_idxs]
+        latent_probe = self.latent_probe
+
+
+################ TRAINING ARGUMENTS ###################
+folder: /home/sosaha/test
+data_folder: /home/sosaha/Extractor_for_Merged/10K_test_pickles_new
+idx_name: all
+target: trueE
+ES: yes
+coords: cart
+loop: True
+pool: mean
+predfile: pred.pickle
+in_layers: 4
+agg_layers: 2
+mp_layers: 4
+out_layers: 2
+hidden_dim: 128
+device: 0
+train_batches: 500
+train_batch_size: 100
+valid_batch_size: 100
+acc_rate: 1
+loss_func: abs_energy_fraction_loss
+num_classes: 1
+n_epochs: 10
+lr_sched: Const
+max_lr: 0.0001
+min_lr: 1e-07
+restart_period: 10
+gamma: None
+thresh: None
+reg: None
+epsilon: None
+minalpha: None
+warm: None
+semiparam: False
+graph_features: []
+#######################################################
+1937 valid points
+7746 train points
+loading in features...
+	Took 1.238 seconds
+loading in target...
+	Took 0.003 seconds
+Matching targets with features...
+  0%|          | 0/9683 [00:00<?, ?it/s] 15%|█▌        | 1485/9683 [00:00<00:00, 14843.15it/s] 31%|███       | 3025/9683 [00:00<00:00, 15170.48it/s] 47%|████▋     | 4569/9683 [00:00<00:00, 15289.82it/s] 63%|██████▎   | 6117/9683 [00:00<00:00, 15363.27it/s] 79%|███████▉  | 7663/9683 [00:00<00:00, 15395.29it/s] 95%|█████████▌| 9203/9683 [00:00<00:00, 15373.77it/s]100%|██████████| 9683/9683 [00:00<00:00, 15228.13it/s]
+/home/sosaha/miniconda3/envs/ml/lib/python3.10/site-packages/torch_geometric/deprecation.py:22: UserWarning: 'data.DataLoader' is deprecated, use 'loader.DataLoader' instead
+  warnings.warn(out)
+/home/sosaha/miniconda3/envs/ml/lib/python3.10/site-packages/torch/nn/parallel/data_parallel.py:32: UserWarning: 
+    There is an imbalance between your GPUs. You may want to exclude GPU 0 which
+    has less than 75% of the memory or cores of GPU 1. You can do so by setting
+    the device_ids argument to DataParallel, or by setting the CUDA_VISIBLE_DEVICES
+    environment variable.
+  warnings.warn(imbalance_warn.format(device_ids[min_pos], device_ids[max_pos]))
+2024-08-01 16:55:34,435 - GNNTrainer - INFO - Model: 
+DataParallel(
+  (module): DynamicReductionNetwork(
+    (drn): RecursiveScriptModule(
+      original_name=DynamicReductionNetworkJit
+      (inputnetECAL): RecursiveScriptModule(
+        original_name=Sequential
+        (0): RecursiveScriptModule(original_name=Linear)
+        (1): RecursiveScriptModule(original_name=ELU)
+        (2): RecursiveScriptModule(original_name=Linear)
+        (3): RecursiveScriptModule(original_name=ELU)
+        (4): RecursiveScriptModule(original_name=Linear)
+        (5): RecursiveScriptModule(original_name=ELU)
+        (6): RecursiveScriptModule(original_name=Linear)
+        (7): RecursiveScriptModule(original_name=ELU)
+      )
+      (inputnetES): RecursiveScriptModule(
+        original_name=Sequential
+        (0): RecursiveScriptModule(original_name=Linear)
+        (1): RecursiveScriptModule(original_name=ELU)
+        (2): RecursiveScriptModule(original_name=Linear)
+        (3): RecursiveScriptModule(original_name=ELU)
+        (4): RecursiveScriptModule(original_name=Linear)
+        (5): RecursiveScriptModule(original_name=ELU)
+        (6): RecursiveScriptModule(original_name=Linear)
+        (7): RecursiveScriptModule(original_name=ELU)
+      )
+      (agg_layers): RecursiveScriptModule(
+        original_name=ModuleList
+        (0): RecursiveScriptModule(
+          original_name=EdgeConvJittable_c471bf
+          (aggr_module): RecursiveScriptModule(original_name=SumAggregation)
+          (nn): RecursiveScriptModule(
+            original_name=Sequential
+            (0): RecursiveScriptModule(original_name=Linear)
+            (1): RecursiveScriptModule(original_name=ELU)
+            (2): RecursiveScriptModule(original_name=Linear)
+            (3): RecursiveScriptModule(original_name=ELU)
+            (4): RecursiveScriptModule(original_name=Linear)
+            (5): RecursiveScriptModule(original_name=ELU)
+            (6): RecursiveScriptModule(original_name=Linear)
+            (7): RecursiveScriptModule(original_name=ELU)
+          )
+        )
+        (1): RecursiveScriptModule(
+          original_name=EdgeConvJittable_c48b29
+          (aggr_module): RecursiveScriptModule(original_name=SumAggregation)
+          (nn): RecursiveScriptModule(
+            original_name=Sequential
+            (0): RecursiveScriptModule(original_name=Linear)
+            (1): RecursiveScriptModule(original_name=ELU)
+            (2): RecursiveScriptModule(original_name=Linear)
+            (3): RecursiveScriptModule(original_name=ELU)
+            (4): RecursiveScriptModule(original_name=Linear)
+            (5): RecursiveScriptModule(original_name=ELU)
+            (6): RecursiveScriptModule(original_name=Linear)
+            (7): RecursiveScriptModule(original_name=ELU)
+          )
+        )
+      )
+      (output): RecursiveScriptModule(
+        original_name=Sequential
+        (0): RecursiveScriptModule(original_name=Linear)
+        (1): RecursiveScriptModule(original_name=ELU)
+        (2): RecursiveScriptModule(original_name=Linear)
+      )
+    )
+  )
+)
+Parameters: 577541
+2024-08-01 16:55:34,435 - GNNTrainer - INFO - Epoch 0
+/home/sosaha/miniconda3/envs/ml/lib/python3.10/site-packages/torch/cuda/memory.py:303: FutureWarning: torch.cuda.reset_max_memory_allocated now calls torch.cuda.reset_peak_memory_stats, which resets /all/ peak memory stats.
+  warnings.warn(
+<torch_geometric.deprecation.DataLoader object at 0x7fef8d3b94b0>
+datalen is 9683
+batch size is 100
+ES is yes and the number of features is 4
+Pooling with max
+Using self-loops
+There are 2 aggregation layers
+NUMBER OF CUDA CORES: 8
+<function abs_energy_fraction_loss at 0x7feda01f60e0>
+  0%|          | 0/78 [00:00<?, ?it/s]  0%|          | 0/78 [00:00<?, ?it/s]
+Traceback (most recent call last):
+  File "/home/sosaha/DRN_ESEmbeddings/DRN/train", line 415, in <module>
+    trainer.train()
+  File "/home/sosaha/DRN_ESEmbeddings/DRN/Train.py", line 326, in train
+    self.trainSummary = trainer.train(
+  File "/home/sosaha/DRN_ESEmbeddings/DRN/training/base.py", line 102, in train
+    sum_train = self.train_epoch(train_data_loader)            
+  File "/home/sosaha/DRN_ESEmbeddings/DRN/training/gnn.py", line 158, in train_epoch
+    for i,data in t:            
+  File "/home/sosaha/miniconda3/envs/ml/lib/python3.10/site-packages/tqdm/std.py", line 1181, in __iter__
+    for obj in iterable:
+  File "/home/sosaha/miniconda3/envs/ml/lib/python3.10/site-packages/torch/utils/data/dataloader.py", line 633, in __next__
+    data = self._next_data()
+  File "/home/sosaha/miniconda3/envs/ml/lib/python3.10/site-packages/torch/utils/data/dataloader.py", line 677, in _next_data
+    data = self._dataset_fetcher.fetch(index)  # may raise StopIteration
+  File "/home/sosaha/miniconda3/envs/ml/lib/python3.10/site-packages/torch/utils/data/_utils/fetch.py", line 54, in fetch
+    return self.collate_fn(data)
+  File "/home/sosaha/miniconda3/envs/ml/lib/python3.10/site-packages/torch_geometric/loader/dataloader.py", line 37, in __call__
+    raise TypeError(f'DataLoader found invalid type: {type(elem)}')
+TypeError: DataLoader found invalid type: <class 'MyDataset.MyDataset'>
+
+################ TRAINING ARGUMENTS ###################
+folder: /home/sosaha/test
+data_folder: /home/sosaha/Extractor_for_Merged/10K_test_pickles_new
+idx_name: all
+target: trueE
+ES: yes
+coords: cart
+loop: True
+pool: mean
+predfile: pred.pickle
+in_layers: 4
+agg_layers: 2
+mp_layers: 4
+out_layers: 2
+hidden_dim: 128
+device: 0
+train_batches: 500
+train_batch_size: 100
+valid_batch_size: 100
+acc_rate: 1
+loss_func: abs_energy_fraction_loss
+num_classes: 1
+n_epochs: 10
+lr_sched: Const
+max_lr: 0.0001
+min_lr: 1e-07
+restart_period: 10
+gamma: None
+thresh: None
+reg: None
+epsilon: None
+minalpha: None
+warm: None
+semiparam: False
+graph_features: []
+#######################################################
+Traceback (most recent call last):
+  File "/home/sosaha/DRN_ESEmbeddings/DRN/train", line 404, in <module>
+    from Train import Train
+  File "/home/sosaha/DRN_ESEmbeddings/DRN/Train.py", line 12, in <module>
+    from training.gnn import GNNTrainer
+  File "/home/sosaha/DRN_ESEmbeddings/DRN/training/gnn.py", line 19, in <module>
+    from models import get_model, get_losses
+  File "/home/sosaha/DRN_ESEmbeddings/DRN/models/__init__.py", line 8, in <module>
+    from .DynamicReductionNetwork import DynamicReductionNetwork
+  File "/home/sosaha/DRN_ESEmbeddings/DRN/models/DynamicReductionNetwork.py", line 87
+    data.graph_x if hasattr(data, 'graph_x') else None
+                                                  ^^^^
+SyntaxError: invalid syntax. Perhaps you forgot a comma?
+
+################ TRAINING ARGUMENTS ###################
+folder: /home/sosaha/test
+data_folder: /home/sosaha/Extractor_for_Merged/10K_test_pickles_new
+idx_name: all
+target: trueE
+ES: yes
+coords: cart
+loop: True
+pool: mean
+predfile: pred.pickle
+in_layers: 4
+agg_layers: 2
+mp_layers: 4
+out_layers: 2
+hidden_dim: 128
+device: 0
+train_batches: 500
+train_batch_size: 100
+valid_batch_size: 100
+acc_rate: 1
+loss_func: abs_energy_fraction_loss
+num_classes: 1
+n_epochs: 10
+lr_sched: Const
+max_lr: 0.0001
+min_lr: 1e-07
+restart_period: 10
+gamma: None
+thresh: None
+reg: None
+epsilon: None
+minalpha: None
+warm: None
+semiparam: False
+graph_features: []
+#######################################################
+1937 valid points
+7746 train points
+loading in features...
+	Took 1.234 seconds
+loading in target...
+	Took 0.003 seconds
+Matching targets with features...
+  0%|          | 0/9683 [00:00<?, ?it/s] 15%|█▍        | 1428/9683 [00:00<00:00, 14277.94it/s] 30%|███       | 2912/9683 [00:00<00:00, 14606.24it/s] 45%|████▌     | 4395/9683 [00:00<00:00, 14706.47it/s] 61%|██████    | 5883/9683 [00:00<00:00, 14773.26it/s] 76%|███████▌  | 7376/9683 [00:00<00:00, 14827.97it/s] 91%|█████████▏| 8859/9683 [00:00<00:00, 14662.87it/s]100%|██████████| 9683/9683 [00:00<00:00, 14665.00it/s]
+/home/sosaha/miniconda3/envs/ml/lib/python3.10/site-packages/torch_geometric/deprecation.py:22: UserWarning: 'data.DataLoader' is deprecated, use 'loader.DataLoader' instead
+  warnings.warn(out)
+/home/sosaha/miniconda3/envs/ml/lib/python3.10/site-packages/torch/nn/parallel/data_parallel.py:32: UserWarning: 
+    There is an imbalance between your GPUs. You may want to exclude GPU 0 which
+    has less than 75% of the memory or cores of GPU 1. You can do so by setting
+    the device_ids argument to DataParallel, or by setting the CUDA_VISIBLE_DEVICES
+    environment variable.
+  warnings.warn(imbalance_warn.format(device_ids[min_pos], device_ids[max_pos]))
+2024-08-02 09:59:09,462 - GNNTrainer - INFO - Model: 
+DataParallel(
+  (module): DynamicReductionNetwork(
+    (drn): RecursiveScriptModule(
+      original_name=DynamicReductionNetworkJit
+      (inputnetECAL): RecursiveScriptModule(
+        original_name=Sequential
+        (0): RecursiveScriptModule(original_name=Linear)
+        (1): RecursiveScriptModule(original_name=ELU)
+        (2): RecursiveScriptModule(original_name=Linear)
+        (3): RecursiveScriptModule(original_name=ELU)
+        (4): RecursiveScriptModule(original_name=Linear)
+        (5): RecursiveScriptModule(original_name=ELU)
+        (6): RecursiveScriptModule(original_name=Linear)
+        (7): RecursiveScriptModule(original_name=ELU)
+      )
+      (inputnetES): RecursiveScriptModule(
+        original_name=Sequential
+        (0): RecursiveScriptModule(original_name=Linear)
+        (1): RecursiveScriptModule(original_name=ELU)
+        (2): RecursiveScriptModule(original_name=Linear)
+        (3): RecursiveScriptModule(original_name=ELU)
+        (4): RecursiveScriptModule(original_name=Linear)
+        (5): RecursiveScriptModule(original_name=ELU)
+        (6): RecursiveScriptModule(original_name=Linear)
+        (7): RecursiveScriptModule(original_name=ELU)
+      )
+      (agg_layers): RecursiveScriptModule(
+        original_name=ModuleList
+        (0): RecursiveScriptModule(
+          original_name=EdgeConvJittable_c2a7a6
+          (aggr_module): RecursiveScriptModule(original_name=SumAggregation)
+          (nn): RecursiveScriptModule(
+            original_name=Sequential
+            (0): RecursiveScriptModule(original_name=Linear)
+            (1): RecursiveScriptModule(original_name=ELU)
+            (2): RecursiveScriptModule(original_name=Linear)
+            (3): RecursiveScriptModule(original_name=ELU)
+            (4): RecursiveScriptModule(original_name=Linear)
+            (5): RecursiveScriptModule(original_name=ELU)
+            (6): RecursiveScriptModule(original_name=Linear)
+            (7): RecursiveScriptModule(original_name=ELU)
+          )
+        )
+        (1): RecursiveScriptModule(
+          original_name=EdgeConvJittable_c2c0d4
+          (aggr_module): RecursiveScriptModule(original_name=SumAggregation)
+          (nn): RecursiveScriptModule(
+            original_name=Sequential
+            (0): RecursiveScriptModule(original_name=Linear)
+            (1): RecursiveScriptModule(original_name=ELU)
+            (2): RecursiveScriptModule(original_name=Linear)
+            (3): RecursiveScriptModule(original_name=ELU)
+            (4): RecursiveScriptModule(original_name=Linear)
+            (5): RecursiveScriptModule(original_name=ELU)
+            (6): RecursiveScriptModule(original_name=Linear)
+            (7): RecursiveScriptModule(original_name=ELU)
+          )
+        )
+      )
+      (output): RecursiveScriptModule(
+        original_name=Sequential
+        (0): RecursiveScriptModule(original_name=Linear)
+        (1): RecursiveScriptModule(original_name=ELU)
+        (2): RecursiveScriptModule(original_name=Linear)
+      )
+    )
+  )
+)
+Parameters: 577541
+2024-08-02 09:59:09,462 - GNNTrainer - INFO - Epoch 0
+/home/sosaha/miniconda3/envs/ml/lib/python3.10/site-packages/torch/cuda/memory.py:303: FutureWarning: torch.cuda.reset_max_memory_allocated now calls torch.cuda.reset_peak_memory_stats, which resets /all/ peak memory stats.
+  warnings.warn(
+<torch_geometric.deprecation.DataLoader object at 0x7fc8be4b54b0>
+datalen is 9683
+batch size is 100
+ES is yes and the number of features is 4
+Pooling with max
+Using self-loops
+There are 2 aggregation layers
+NUMBER OF CUDA CORES: 8
+<function abs_energy_fraction_loss at 0x7fc6d0246050>
+  0%|          | 0/78 [00:00<?, ?it/s]  0%|          | 0/78 [00:00<?, ?it/s]
+Traceback (most recent call last):
+  File "/home/sosaha/DRN_ESEmbeddings/DRN/train", line 415, in <module>
+    trainer.train()
+  File "/home/sosaha/DRN_ESEmbeddings/DRN/Train.py", line 326, in train
+    self.trainSummary = trainer.train(
+  File "/home/sosaha/DRN_ESEmbeddings/DRN/training/base.py", line 102, in train
+    sum_train = self.train_epoch(train_data_loader)            
+  File "/home/sosaha/DRN_ESEmbeddings/DRN/training/gnn.py", line 158, in train_epoch
+    for i,data in t:            
+  File "/home/sosaha/miniconda3/envs/ml/lib/python3.10/site-packages/tqdm/std.py", line 1181, in __iter__
+    for obj in iterable:
+  File "/home/sosaha/miniconda3/envs/ml/lib/python3.10/site-packages/torch/utils/data/dataloader.py", line 633, in __next__
+    data = self._next_data()
+  File "/home/sosaha/miniconda3/envs/ml/lib/python3.10/site-packages/torch/utils/data/dataloader.py", line 677, in _next_data
+    data = self._dataset_fetcher.fetch(index)  # may raise StopIteration
+  File "/home/sosaha/miniconda3/envs/ml/lib/python3.10/site-packages/torch/utils/data/_utils/fetch.py", line 54, in fetch
+    return self.collate_fn(data)
+  File "/home/sosaha/miniconda3/envs/ml/lib/python3.10/site-packages/torch_geometric/loader/dataloader.py", line 37, in __call__
+    raise TypeError(f'DataLoader found invalid type: {type(elem)}')
+TypeError: DataLoader found invalid type: <class 'MyDataset.MyDataset'>
+
+################ TRAINING ARGUMENTS ###################
+folder: /home/sosaha/test
+data_folder: /home/sosaha/Extractor_for_Merged/10K_test_pickles
+idx_name: all
+target: trueE
+ES: yes
+coords: cart
+loop: True
+pool: mean
+predfile: pred.pickle
+in_layers: 3
+agg_layers: 2
+mp_layers: 4
+out_layers: 2
+hidden_dim: 128
+device: 0
+train_batches: 500
+train_batch_size: 100
+valid_batch_size: 100
+acc_rate: 1
+loss_func: abs_energy_fraction_loss
+num_classes: 1
+n_epochs: 50
+lr_sched: Const
+max_lr: 0.0001
+min_lr: 1e-07
+restart_period: 50
+gamma: None
+thresh: None
+reg: None
+epsilon: None
+minalpha: None
+warm: None
+semiparam: False
+graph_features: []
+#######################################################
+1937 valid points
+7746 train points
+loading in features...
+Traceback (most recent call last):
+  File "/home/sosaha/DRN_ESEmbeddings/DRN/train", line 412, in <module>
+    trainer.loadFeatures(pased_args['predict_only'])
+  File "/home/sosaha/DRN_ESEmbeddings/DRN/Train.py", line 181, in loadFeatures
+    data=pickle.load(f)
+_pickle.UnpicklingError: A load persistent id instruction was encountered,
+but no persistent_load function was specified.
+
+################ TRAINING ARGUMENTS ###################
+folder: /home/sosaha/test
+data_folder: /home/sosaha/Extractor_for_Merged/10K_test_pickles
+idx_name: all
+target: trueE
+ES: yes
+coords: cart
+loop: True
+pool: mean
+predfile: pred.pickle
+in_layers: 3
+agg_layers: 2
+mp_layers: 4
+out_layers: 2
+hidden_dim: 128
+device: 0
+train_batches: 500
+train_batch_size: 100
+valid_batch_size: 100
+acc_rate: 1
+loss_func: abs_energy_fraction_loss
+num_classes: 1
+n_epochs: 50
+lr_sched: Const
+max_lr: 0.0001
+min_lr: 1e-07
+restart_period: 50
+gamma: None
+thresh: None
+reg: None
+epsilon: None
+minalpha: None
+warm: None
+semiparam: False
+graph_features: []
+#######################################################
+1937 valid points
+7746 train points
+loading in features...
+	Took 0.598 seconds
+loading in target...
+	Took 0.000 seconds
+Matching targets with features...
+  0%|          | 0/9683 [00:00<?, ?it/s] 14%|█▎        | 1310/9683 [00:00<00:00, 13093.14it/s] 28%|██▊       | 2707/9683 [00:00<00:00, 13606.68it/s] 42%|████▏     | 4085/9683 [00:00<00:00, 13683.46it/s] 57%|█████▋    | 5474/9683 [00:00<00:00, 13764.82it/s] 71%|███████   | 6858/9683 [00:00<00:00, 13790.35it/s] 85%|████████▌ | 8238/9683 [00:00<00:00, 13772.75it/s] 99%|█████████▉| 9628/9683 [00:00<00:00, 13813.58it/s]100%|██████████| 9683/9683 [00:00<00:00, 13739.81it/s]
+/home/sosaha/miniconda3/envs/ml/lib/python3.10/site-packages/torch_geometric/deprecation.py:22: UserWarning: 'data.DataLoader' is deprecated, use 'loader.DataLoader' instead
+  warnings.warn(out)
+/home/sosaha/miniconda3/envs/ml/lib/python3.10/site-packages/torch/nn/parallel/data_parallel.py:32: UserWarning: 
+    There is an imbalance between your GPUs. You may want to exclude GPU 0 which
+    has less than 75% of the memory or cores of GPU 1. You can do so by setting
+    the device_ids argument to DataParallel, or by setting the CUDA_VISIBLE_DEVICES
+    environment variable.
+  warnings.warn(imbalance_warn.format(device_ids[min_pos], device_ids[max_pos]))
+2024-08-02 10:01:53,346 - GNNTrainer - INFO - Model: 
+DataParallel(
+  (module): DynamicReductionNetwork(
+    (drn): RecursiveScriptModule(
+      original_name=DynamicReductionNetworkJit
+      (inputnetECAL): RecursiveScriptModule(
+        original_name=Sequential
+        (0): RecursiveScriptModule(original_name=Linear)
+        (1): RecursiveScriptModule(original_name=ELU)
+        (2): RecursiveScriptModule(original_name=Linear)
+        (3): RecursiveScriptModule(original_name=ELU)
+        (4): RecursiveScriptModule(original_name=Linear)
+        (5): RecursiveScriptModule(original_name=ELU)
+      )
+      (inputnetES): RecursiveScriptModule(
+        original_name=Sequential
+        (0): RecursiveScriptModule(original_name=Linear)
+        (1): RecursiveScriptModule(original_name=ELU)
+        (2): RecursiveScriptModule(original_name=Linear)
+        (3): RecursiveScriptModule(original_name=ELU)
+        (4): RecursiveScriptModule(original_name=Linear)
+        (5): RecursiveScriptModule(original_name=ELU)
+      )
+      (agg_layers): RecursiveScriptModule(
+        original_name=ModuleList
+        (0): RecursiveScriptModule(
+          original_name=EdgeConvJittable_24693f
+          (aggr_module): RecursiveScriptModule(original_name=SumAggregation)
+          (nn): RecursiveScriptModule(
+            original_name=Sequential
+            (0): RecursiveScriptModule(original_name=Linear)
+            (1): RecursiveScriptModule(original_name=ELU)
+            (2): RecursiveScriptModule(original_name=Linear)
+            (3): RecursiveScriptModule(original_name=ELU)
+            (4): RecursiveScriptModule(original_name=Linear)
+            (5): RecursiveScriptModule(original_name=ELU)
+            (6): RecursiveScriptModule(original_name=Linear)
+            (7): RecursiveScriptModule(original_name=ELU)
+          )
+        )
+        (1): RecursiveScriptModule(
+          original_name=EdgeConvJittable_247105
+          (aggr_module): RecursiveScriptModule(original_name=SumAggregation)
+          (nn): RecursiveScriptModule(
+            original_name=Sequential
+            (0): RecursiveScriptModule(original_name=Linear)
+            (1): RecursiveScriptModule(original_name=ELU)
+            (2): RecursiveScriptModule(original_name=Linear)
+            (3): RecursiveScriptModule(original_name=ELU)
+            (4): RecursiveScriptModule(original_name=Linear)
+            (5): RecursiveScriptModule(original_name=ELU)
+            (6): RecursiveScriptModule(original_name=Linear)
+            (7): RecursiveScriptModule(original_name=ELU)
+          )
+        )
+      )
+      (output): RecursiveScriptModule(
+        original_name=Sequential
+        (0): RecursiveScriptModule(original_name=Linear)
+        (1): RecursiveScriptModule(original_name=ELU)
+        (2): RecursiveScriptModule(original_name=Linear)
+      )
+    )
+  )
+)
+Parameters: 544517
+2024-08-02 10:01:53,346 - GNNTrainer - INFO - Epoch 0
+/home/sosaha/miniconda3/envs/ml/lib/python3.10/site-packages/torch/cuda/memory.py:303: FutureWarning: torch.cuda.reset_max_memory_allocated now calls torch.cuda.reset_peak_memory_stats, which resets /all/ peak memory stats.
+  warnings.warn(
+datalen is 9683
+batch size is 100
+ES is yes and the number of features is 4
+Pooling with max
+Using self-loops
+There are 2 aggregation layers
+NUMBER OF CUDA CORES: 8
+<function abs_energy_fraction_loss at 0x7f3f98389fc0>
+  0%|          | 0/78 [00:00<?, ?it/s]/home/sosaha/miniconda3/envs/ml/lib/python3.10/site-packages/torch_geometric/data/storage.py:304: UserWarning: Unable to accurately infer 'num_nodes' from the attribute set '{'xECAL', 'y', 'xES'}'. Please explicitly set 'num_nodes' as an attribute of 'data' to suppress this warning
+  warnings.warn(
+  0%|          | 0/78 [00:00<?, ?it/s]
+Traceback (most recent call last):
+  File "/home/sosaha/DRN_ESEmbeddings/DRN/train", line 415, in <module>
+    trainer.train()
+  File "/home/sosaha/DRN_ESEmbeddings/DRN/Train.py", line 315, in train
+    self.trainSummary = trainer.train(
+  File "/home/sosaha/DRN_ESEmbeddings/DRN/training/base.py", line 102, in train
+    sum_train = self.train_epoch(train_data_loader)            
+  File "/home/sosaha/DRN_ESEmbeddings/DRN/training/gnn.py", line 168, in train_epoch
+    batch_output = self.model(data.to_data_list())
+  File "/home/sosaha/miniconda3/envs/ml/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1501, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "/home/sosaha/miniconda3/envs/ml/lib/python3.10/site-packages/torch_geometric/nn/data_parallel.py", line 68, in forward
+    inputs = self.scatter(data_list, self.device_ids)
+  File "/home/sosaha/miniconda3/envs/ml/lib/python3.10/site-packages/torch_geometric/nn/data_parallel.py", line 76, in scatter
+    count = torch.tensor([data.num_nodes for data in data_list])
+RuntimeError: Could not infer dtype of NoneType
+
+################ TRAINING ARGUMENTS ###################
+folder: /home/sosaha/test
+data_folder: /home/sosaha/Extractor_for_Merged/10K_test_pickles
+idx_name: all
+target: trueE
+ES: yes
+coords: cart
+loop: True
+pool: mean
+predfile: pred.pickle
+in_layers: 3
+agg_layers: 2
+mp_layers: 4
+out_layers: 2
+hidden_dim: 128
+device: 0
+train_batches: 500
+train_batch_size: 100
+valid_batch_size: 100
+acc_rate: 1
+loss_func: abs_energy_fraction_loss
+num_classes: 1
+n_epochs: 50
+lr_sched: Const
+max_lr: 0.0001
+min_lr: 1e-07
+restart_period: 50
+gamma: None
+thresh: None
+reg: None
+epsilon: None
+minalpha: None
+warm: None
+semiparam: False
+graph_features: []
+#######################################################
+Traceback (most recent call last):
+  File "/home/sosaha/DRN_ESEmbeddings/DRN/train", line 404, in <module>
+    from Train import Train
+  File "/home/sosaha/DRN_ESEmbeddings/DRN/Train.py", line 12, in <module>
+    from training.gnn import GNNTrainer
+  File "/home/sosaha/DRN_ESEmbeddings/DRN/training/gnn.py", line 19, in <module>
+    from models import get_model, get_losses
+  File "/home/sosaha/DRN_ESEmbeddings/DRN/models/__init__.py", line 8, in <module>
+    from .DynamicReductionNetwork import DynamicReductionNetwork
+  File "/home/sosaha/DRN_ESEmbeddings/DRN/models/DynamicReductionNetwork.py", line 94
+    data.num_nodes = data.xECAL.shape[0]
+    ^^^^^^^^^^^^^^^^
+SyntaxError: expression cannot contain assignment, perhaps you meant "=="?
+
+################ TRAINING ARGUMENTS ###################
+folder: /home/sosaha/test
+data_folder: /home/sosaha/Extractor_for_Merged/10K_test_pickles
+idx_name: all
+target: trueE
+ES: yes
+coords: cart
+loop: True
+pool: mean
+predfile: pred.pickle
+in_layers: 3
+agg_layers: 2
+mp_layers: 4
+out_layers: 2
+hidden_dim: 128
+device: 0
+train_batches: 500
+train_batch_size: 100
+valid_batch_size: 100
+acc_rate: 1
+loss_func: abs_energy_fraction_loss
+num_classes: 1
+n_epochs: 50
+lr_sched: Const
+max_lr: 0.0001
+min_lr: 1e-07
+restart_period: 50
+gamma: None
+thresh: None
+reg: None
+epsilon: None
+minalpha: None
+warm: None
+semiparam: False
+graph_features: []
+#######################################################
+1937 valid points
+7746 train points
+loading in features...
+	Took 0.612 seconds
+loading in target...
+	Took 0.000 seconds
+Matching targets with features...
+  0%|          | 0/9683 [00:00<?, ?it/s] 14%|█▎        | 1326/9683 [00:00<00:00, 13259.19it/s] 28%|██▊       | 2711/9683 [00:00<00:00, 13601.92it/s] 42%|████▏     | 4087/9683 [00:00<00:00, 13673.68it/s] 56%|█████▋    | 5466/9683 [00:00<00:00, 13718.02it/s] 71%|███████   | 6851/9683 [00:00<00:00, 13764.81it/s] 85%|████████▍ | 8228/9683 [00:00<00:00, 13748.93it/s] 99%|█████████▉| 9614/9683 [00:00<00:00, 13782.54it/s]100%|██████████| 9683/9683 [00:00<00:00, 13721.50it/s]
+/home/sosaha/miniconda3/envs/ml/lib/python3.10/site-packages/torch_geometric/deprecation.py:22: UserWarning: 'data.DataLoader' is deprecated, use 'loader.DataLoader' instead
+  warnings.warn(out)
+/home/sosaha/miniconda3/envs/ml/lib/python3.10/site-packages/torch/nn/parallel/data_parallel.py:32: UserWarning: 
+    There is an imbalance between your GPUs. You may want to exclude GPU 0 which
+    has less than 75% of the memory or cores of GPU 1. You can do so by setting
+    the device_ids argument to DataParallel, or by setting the CUDA_VISIBLE_DEVICES
+    environment variable.
+  warnings.warn(imbalance_warn.format(device_ids[min_pos], device_ids[max_pos]))
+2024-08-02 10:11:28,704 - GNNTrainer - INFO - Model: 
+DataParallel(
+  (module): DynamicReductionNetwork(
+    (drn): RecursiveScriptModule(
+      original_name=DynamicReductionNetworkJit
+      (inputnetECAL): RecursiveScriptModule(
+        original_name=Sequential
+        (0): RecursiveScriptModule(original_name=Linear)
+        (1): RecursiveScriptModule(original_name=ELU)
+        (2): RecursiveScriptModule(original_name=Linear)
+        (3): RecursiveScriptModule(original_name=ELU)
+        (4): RecursiveScriptModule(original_name=Linear)
+        (5): RecursiveScriptModule(original_name=ELU)
+      )
+      (inputnetES): RecursiveScriptModule(
+        original_name=Sequential
+        (0): RecursiveScriptModule(original_name=Linear)
+        (1): RecursiveScriptModule(original_name=ELU)
+        (2): RecursiveScriptModule(original_name=Linear)
+        (3): RecursiveScriptModule(original_name=ELU)
+        (4): RecursiveScriptModule(original_name=Linear)
+        (5): RecursiveScriptModule(original_name=ELU)
+      )
+      (agg_layers): RecursiveScriptModule(
+        original_name=ModuleList
+        (0): RecursiveScriptModule(
+          original_name=EdgeConvJittable_7b59c8
+          (aggr_module): RecursiveScriptModule(original_name=SumAggregation)
+          (nn): RecursiveScriptModule(
+            original_name=Sequential
+            (0): RecursiveScriptModule(original_name=Linear)
+            (1): RecursiveScriptModule(original_name=ELU)
+            (2): RecursiveScriptModule(original_name=Linear)
+            (3): RecursiveScriptModule(original_name=ELU)
+            (4): RecursiveScriptModule(original_name=Linear)
+            (5): RecursiveScriptModule(original_name=ELU)
+            (6): RecursiveScriptModule(original_name=Linear)
+            (7): RecursiveScriptModule(original_name=ELU)
+          )
+        )
+        (1): RecursiveScriptModule(
+          original_name=EdgeConvJittable_7b6198
+          (aggr_module): RecursiveScriptModule(original_name=SumAggregation)
+          (nn): RecursiveScriptModule(
+            original_name=Sequential
+            (0): RecursiveScriptModule(original_name=Linear)
+            (1): RecursiveScriptModule(original_name=ELU)
+            (2): RecursiveScriptModule(original_name=Linear)
+            (3): RecursiveScriptModule(original_name=ELU)
+            (4): RecursiveScriptModule(original_name=Linear)
+            (5): RecursiveScriptModule(original_name=ELU)
+            (6): RecursiveScriptModule(original_name=Linear)
+            (7): RecursiveScriptModule(original_name=ELU)
+          )
+        )
+      )
+      (output): RecursiveScriptModule(
+        original_name=Sequential
+        (0): RecursiveScriptModule(original_name=Linear)
+        (1): RecursiveScriptModule(original_name=ELU)
+        (2): RecursiveScriptModule(original_name=Linear)
+      )
+    )
+  )
+)
+Parameters: 544517
+2024-08-02 10:11:28,704 - GNNTrainer - INFO - Epoch 0
+/home/sosaha/miniconda3/envs/ml/lib/python3.10/site-packages/torch/cuda/memory.py:303: FutureWarning: torch.cuda.reset_max_memory_allocated now calls torch.cuda.reset_peak_memory_stats, which resets /all/ peak memory stats.
+  warnings.warn(
+datalen is 9683
+batch size is 100
+ES is yes and the number of features is 4
+Pooling with max
+Using self-loops
+There are 2 aggregation layers
+NUMBER OF CUDA CORES: 8
+<function abs_energy_fraction_loss at 0x7f08307be050>
+  0%|          | 0/78 [00:00<?, ?it/s]/home/sosaha/miniconda3/envs/ml/lib/python3.10/site-packages/torch_geometric/data/storage.py:304: UserWarning: Unable to accurately infer 'num_nodes' from the attribute set '{'xECAL', 'y', 'xES'}'. Please explicitly set 'num_nodes' as an attribute of 'data' to suppress this warning
+  warnings.warn(
+  0%|          | 0/78 [00:00<?, ?it/s]
+Traceback (most recent call last):
+  File "/home/sosaha/DRN_ESEmbeddings/DRN/train", line 415, in <module>
+    trainer.train()
+  File "/home/sosaha/DRN_ESEmbeddings/DRN/Train.py", line 315, in train
+    self.trainSummary = trainer.train(
+  File "/home/sosaha/DRN_ESEmbeddings/DRN/training/base.py", line 102, in train
+    sum_train = self.train_epoch(train_data_loader)            
+  File "/home/sosaha/DRN_ESEmbeddings/DRN/training/gnn.py", line 168, in train_epoch
+    batch_output = self.model(data.to_data_list())
+  File "/home/sosaha/miniconda3/envs/ml/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1501, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "/home/sosaha/miniconda3/envs/ml/lib/python3.10/site-packages/torch_geometric/nn/data_parallel.py", line 68, in forward
+    inputs = self.scatter(data_list, self.device_ids)
+  File "/home/sosaha/miniconda3/envs/ml/lib/python3.10/site-packages/torch_geometric/nn/data_parallel.py", line 76, in scatter
+    count = torch.tensor([data.num_nodes for data in data_list])
+RuntimeError: Could not infer dtype of NoneType
+
+################ TRAINING ARGUMENTS ###################
+folder: /home/sosaha/test
+data_folder: /home/sosaha/Extractor_for_Merged/10K_test_pickles
+idx_name: all
+target: trueE
+ES: yes
+coords: cart
+loop: True
+pool: mean
+predfile: pred.pickle
+in_layers: 3
+agg_layers: 2
+mp_layers: 4
+out_layers: 2
+hidden_dim: 128
+device: 0
+train_batches: 500
+train_batch_size: 100
+valid_batch_size: 100
+acc_rate: 1
+loss_func: abs_energy_fraction_loss
+num_classes: 1
+n_epochs: 50
+lr_sched: Const
+max_lr: 0.0001
+min_lr: 1e-07
+restart_period: 50
+gamma: None
+thresh: None
+reg: None
+epsilon: None
+minalpha: None
+warm: None
+semiparam: False
+graph_features: []
+#######################################################
+1937 valid points
+7746 train points
+loading in features...
+Traceback (most recent call last):
+  File "/home/sosaha/DRN_ESEmbeddings/DRN/train", line 412, in <module>
+    trainer.loadFeatures(pased_args['predict_only'])
+  File "/home/sosaha/DRN_ESEmbeddings/DRN/Train.py", line 178, in loadFeatures
+    data = torch.load("%s.pickle" % fname)
+  File "/home/sosaha/miniconda3/envs/ml/lib/python3.10/site-packages/torch/serialization.py", line 815, in load
+    return _legacy_load(opened_file, map_location, pickle_module, **pickle_load_args)
+  File "/home/sosaha/miniconda3/envs/ml/lib/python3.10/site-packages/torch/serialization.py", line 1035, in _legacy_load
+    raise RuntimeError("Invalid magic number; corrupt file?")
+RuntimeError: Invalid magic number; corrupt file?
+
+################ TRAINING ARGUMENTS ###################
+folder: /home/sosaha/test
+data_folder: /home/sosaha/Extractor_for_Merged/10K_test_pickles
+idx_name: all
+target: trueE
+ES: yes
+coords: cart
+loop: True
+pool: mean
+predfile: pred.pickle
+in_layers: 3
+agg_layers: 2
+mp_layers: 4
+out_layers: 2
+hidden_dim: 128
+device: 0
+train_batches: 500
+train_batch_size: 100
+valid_batch_size: 100
+acc_rate: 1
+loss_func: abs_energy_fraction_loss
+num_classes: 1
+n_epochs: 50
+lr_sched: Const
+max_lr: 0.0001
+min_lr: 1e-07
+restart_period: 50
+gamma: None
+thresh: None
+reg: None
+epsilon: None
+minalpha: None
+warm: None
+semiparam: False
+graph_features: []
+#######################################################
+Traceback (most recent call last):
+  File "/home/sosaha/DRN_ESEmbeddings/DRN/train", line 404, in <module>
+    from Train import Train
+  File "/home/sosaha/DRN_ESEmbeddings/DRN/Train.py", line 12, in <module>
+    from training.gnn import GNNTrainer
+  File "/home/sosaha/DRN_ESEmbeddings/DRN/training/gnn.py", line 19, in <module>
+    from models import get_model, get_losses
+  File "/home/sosaha/DRN_ESEmbeddings/DRN/models/__init__.py", line 8, in <module>
+    from .DynamicReductionNetwork import DynamicReductionNetwork
+  File "/home/sosaha/DRN_ESEmbeddings/DRN/models/DynamicReductionNetwork.py", line 86
+    data.num_nodes
+    ^^^^^^^^^^^^^^
+SyntaxError: invalid syntax. Perhaps you forgot a comma?
+
+################ TRAINING ARGUMENTS ###################
+folder: /home/sosaha/test
+data_folder: /home/sosaha/Extractor_for_Merged/10K_test_pickles
+idx_name: all
+target: trueE
+ES: yes
+coords: cart
+loop: True
+pool: mean
+predfile: pred.pickle
+in_layers: 3
+agg_layers: 2
+mp_layers: 4
+out_layers: 2
+hidden_dim: 128
+device: 0
+train_batches: 500
+train_batch_size: 100
+valid_batch_size: 100
+acc_rate: 1
+loss_func: abs_energy_fraction_loss
+num_classes: 1
+n_epochs: 50
+lr_sched: Const
+max_lr: 0.0001
+min_lr: 1e-07
+restart_period: 50
+gamma: None
+thresh: None
+reg: None
+epsilon: None
+minalpha: None
+warm: None
+semiparam: False
+graph_features: []
+#######################################################
+1937 valid points
+7746 train points
+loading in features...
+Traceback (most recent call last):
+  File "/home/sosaha/DRN_ESEmbeddings/DRN/train", line 412, in <module>
+    trainer.loadFeatures(pased_args['predict_only'])
+  File "/home/sosaha/DRN_ESEmbeddings/DRN/Train.py", line 178, in loadFeatures
+    data = torch.load("%s.pickle" % fname)
+  File "/home/sosaha/miniconda3/envs/ml/lib/python3.10/site-packages/torch/serialization.py", line 815, in load
+    return _legacy_load(opened_file, map_location, pickle_module, **pickle_load_args)
+  File "/home/sosaha/miniconda3/envs/ml/lib/python3.10/site-packages/torch/serialization.py", line 1035, in _legacy_load
+    raise RuntimeError("Invalid magic number; corrupt file?")
+RuntimeError: Invalid magic number; corrupt file?
+
+################ TRAINING ARGUMENTS ###################
+folder: /home/sosaha/test
+data_folder: /home/sosaha/Extractor_for_Merged/10K_test_pickles
+idx_name: all
+target: trueE
+ES: yes
+coords: cart
+loop: True
+pool: mean
+predfile: pred.pickle
+in_layers: 3
+agg_layers: 2
+mp_layers: 4
+out_layers: 2
+hidden_dim: 128
+device: 0
+train_batches: 500
+train_batch_size: 100
+valid_batch_size: 100
+acc_rate: 1
+loss_func: abs_energy_fraction_loss
+num_classes: 1
+n_epochs: 50
+lr_sched: Const
+max_lr: 0.0001
+min_lr: 1e-07
+restart_period: 50
+gamma: None
+thresh: None
+reg: None
+epsilon: None
+minalpha: None
+warm: None
+semiparam: False
+graph_features: []
+#######################################################
+1937 valid points
+7746 train points
+loading in features...
+	Took 0.636 seconds
+loading in target...
+	Took 0.001 seconds
+Matching targets with features...
+  0%|          | 0/9683 [00:00<?, ?it/s] 13%|█▎        | 1295/9683 [00:00<00:00, 12948.16it/s] 27%|██▋       | 2647/9683 [00:00<00:00, 13283.89it/s] 41%|████      | 3988/9683 [00:00<00:00, 13340.69it/s] 55%|█████▌    | 5328/9683 [00:00<00:00, 13360.82it/s] 69%|██████▉   | 6676/9683 [00:00<00:00, 13400.23it/s] 83%|████████▎ | 8017/9683 [00:00<00:00, 13372.77it/s] 97%|█████████▋| 9367/9683 [00:00<00:00, 13413.79it/s]100%|██████████| 9683/9683 [00:00<00:00, 13367.50it/s]
+/home/sosaha/miniconda3/envs/ml/lib/python3.10/site-packages/torch_geometric/deprecation.py:22: UserWarning: 'data.DataLoader' is deprecated, use 'loader.DataLoader' instead
+  warnings.warn(out)
+/home/sosaha/miniconda3/envs/ml/lib/python3.10/site-packages/torch/nn/parallel/data_parallel.py:32: UserWarning: 
+    There is an imbalance between your GPUs. You may want to exclude GPU 0 which
+    has less than 75% of the memory or cores of GPU 1. You can do so by setting
+    the device_ids argument to DataParallel, or by setting the CUDA_VISIBLE_DEVICES
+    environment variable.
+  warnings.warn(imbalance_warn.format(device_ids[min_pos], device_ids[max_pos]))
+2024-08-02 10:25:28,151 - GNNTrainer - INFO - Model: 
+DataParallel(
+  (module): DynamicReductionNetwork(
+    (drn): RecursiveScriptModule(
+      original_name=DynamicReductionNetworkJit
+      (inputnetECAL): RecursiveScriptModule(
+        original_name=Sequential
+        (0): RecursiveScriptModule(original_name=Linear)
+        (1): RecursiveScriptModule(original_name=ELU)
+        (2): RecursiveScriptModule(original_name=Linear)
+        (3): RecursiveScriptModule(original_name=ELU)
+        (4): RecursiveScriptModule(original_name=Linear)
+        (5): RecursiveScriptModule(original_name=ELU)
+      )
+      (inputnetES): RecursiveScriptModule(
+        original_name=Sequential
+        (0): RecursiveScriptModule(original_name=Linear)
+        (1): RecursiveScriptModule(original_name=ELU)
+        (2): RecursiveScriptModule(original_name=Linear)
+        (3): RecursiveScriptModule(original_name=ELU)
+        (4): RecursiveScriptModule(original_name=Linear)
+        (5): RecursiveScriptModule(original_name=ELU)
+      )
+      (agg_layers): RecursiveScriptModule(
+        original_name=ModuleList
+        (0): RecursiveScriptModule(
+          original_name=EdgeConvJittable_6fb1bc
+          (aggr_module): RecursiveScriptModule(original_name=SumAggregation)
+          (nn): RecursiveScriptModule(
+            original_name=Sequential
+            (0): RecursiveScriptModule(original_name=Linear)
+            (1): RecursiveScriptModule(original_name=ELU)
+            (2): RecursiveScriptModule(original_name=Linear)
+            (3): RecursiveScriptModule(original_name=ELU)
+            (4): RecursiveScriptModule(original_name=Linear)
+            (5): RecursiveScriptModule(original_name=ELU)
+            (6): RecursiveScriptModule(original_name=Linear)
+            (7): RecursiveScriptModule(original_name=ELU)
+          )
+        )
+        (1): RecursiveScriptModule(
+          original_name=EdgeConvJittable_6fb986
+          (aggr_module): RecursiveScriptModule(original_name=SumAggregation)
+          (nn): RecursiveScriptModule(
+            original_name=Sequential
+            (0): RecursiveScriptModule(original_name=Linear)
+            (1): RecursiveScriptModule(original_name=ELU)
+            (2): RecursiveScriptModule(original_name=Linear)
+            (3): RecursiveScriptModule(original_name=ELU)
+            (4): RecursiveScriptModule(original_name=Linear)
+            (5): RecursiveScriptModule(original_name=ELU)
+            (6): RecursiveScriptModule(original_name=Linear)
+            (7): RecursiveScriptModule(original_name=ELU)
+          )
+        )
+      )
+      (output): RecursiveScriptModule(
+        original_name=Sequential
+        (0): RecursiveScriptModule(original_name=Linear)
+        (1): RecursiveScriptModule(original_name=ELU)
+        (2): RecursiveScriptModule(original_name=Linear)
+      )
+    )
+  )
+)
+Parameters: 544517
+2024-08-02 10:25:28,152 - GNNTrainer - INFO - Epoch 0
+/home/sosaha/miniconda3/envs/ml/lib/python3.10/site-packages/torch/cuda/memory.py:303: FutureWarning: torch.cuda.reset_max_memory_allocated now calls torch.cuda.reset_peak_memory_stats, which resets /all/ peak memory stats.
+  warnings.warn(
+datalen is 9683
+batch size is 100
+ES is yes and the number of features is 4
+Pooling with max
+Using self-loops
+There are 2 aggregation layers
+NUMBER OF CUDA CORES: 8
+<function abs_energy_fraction_loss at 0x7fe34c8aa0e0>
+  0%|          | 0/78 [00:00<?, ?it/s]  0%|          | 0/78 [00:02<?, ?it/s]
+Traceback (most recent call last):
+  File "/home/sosaha/DRN_ESEmbeddings/DRN/train", line 415, in <module>
+    trainer.train()
+  File "/home/sosaha/DRN_ESEmbeddings/DRN/Train.py", line 315, in train
+    self.trainSummary = trainer.train(
+  File "/home/sosaha/DRN_ESEmbeddings/DRN/training/base.py", line 102, in train
+    sum_train = self.train_epoch(train_data_loader)            
+  File "/home/sosaha/DRN_ESEmbeddings/DRN/training/gnn.py", line 168, in train_epoch
+    batch_output = self.model(data.to_data_list())
+  File "/home/sosaha/miniconda3/envs/ml/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1501, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "/home/sosaha/miniconda3/envs/ml/lib/python3.10/site-packages/torch_geometric/nn/data_parallel.py", line 70, in forward
+    outputs = self.parallel_apply(replicas, inputs, None)
+  File "/home/sosaha/miniconda3/envs/ml/lib/python3.10/site-packages/torch/nn/parallel/data_parallel.py", line 181, in parallel_apply
+    return parallel_apply(replicas, inputs, kwargs, self.device_ids[:len(replicas)])
+  File "/home/sosaha/miniconda3/envs/ml/lib/python3.10/site-packages/torch/nn/parallel/parallel_apply.py", line 89, in parallel_apply
+    output.reraise()
+  File "/home/sosaha/miniconda3/envs/ml/lib/python3.10/site-packages/torch/_utils.py", line 644, in reraise
+    raise exception
+RuntimeError: Caught RuntimeError in replica 0 on device 0.
+Original Traceback (most recent call last):
+  File "/home/sosaha/miniconda3/envs/ml/lib/python3.10/site-packages/torch/nn/parallel/parallel_apply.py", line 64, in _worker
+    output = module(*input, **kwargs)
+  File "/home/sosaha/miniconda3/envs/ml/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1501, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "/home/sosaha/DRN_ESEmbeddings/DRN/models/DynamicReductionNetwork.py", line 83, in forward
+    return self.drn(
+  File "/home/sosaha/miniconda3/envs/ml/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1501, in _call_impl
+    return forward_call(*args, **kwargs)
+RuntimeError: forward() expected at most 6 argument(s) but received 7 argument(s). Declaration: forward(__torch__.models.DynamicReductionNetworkJit.DynamicReductionNetworkJit self, Tensor xECAL, Tensor xES, Tensor? graph_x, Tensor? xECAL_batch, Tensor? xES_batch) -> Tensor
+
+
+################ TRAINING ARGUMENTS ###################
+folder: /home/sosaha/test
+data_folder: /home/sosaha/Extractor_for_Merged/10K_test_pickles
+idx_name: all
+target: trueE
+ES: yes
+coords: cart
+loop: True
+pool: mean
+predfile: pred.pickle
+in_layers: 3
+agg_layers: 2
+mp_layers: 4
+out_layers: 2
+hidden_dim: 128
+device: 0
+train_batches: 500
+train_batch_size: 100
+valid_batch_size: 100
+acc_rate: 1
+loss_func: abs_energy_fraction_loss
+num_classes: 1
+n_epochs: 50
+lr_sched: Const
+max_lr: 0.0001
+min_lr: 1e-07
+restart_period: 50
+gamma: None
+thresh: None
+reg: None
+epsilon: None
+minalpha: None
+warm: None
+semiparam: False
+graph_features: []
+#######################################################
+1937 valid points
+7746 train points
+loading in features...
+	Took 0.623 seconds
+loading in target...
+	Took 0.001 seconds
+Matching targets with features...
+  0%|          | 0/9683 [00:00<?, ?it/s] 14%|█▍        | 1334/9683 [00:00<00:00, 13330.57it/s] 28%|██▊       | 2724/9683 [00:00<00:00, 13663.33it/s] 42%|████▏     | 4104/9683 [00:00<00:00, 13725.19it/s] 57%|█████▋    | 5477/9683 [00:00<00:00, 13722.97it/s] 71%|███████   | 6857/9683 [00:00<00:00, 13748.93it/s] 85%|████████▌ | 8232/9683 [00:00<00:00, 13679.52it/s] 99%|█████████▉| 9623/9683 [00:00<00:00, 13752.38it/s]100%|██████████| 9683/9683 [00:00<00:00, 13706.11it/s]
+/home/sosaha/miniconda3/envs/ml/lib/python3.10/site-packages/torch_geometric/deprecation.py:22: UserWarning: 'data.DataLoader' is deprecated, use 'loader.DataLoader' instead
+  warnings.warn(out)
+/home/sosaha/miniconda3/envs/ml/lib/python3.10/site-packages/torch/nn/parallel/data_parallel.py:32: UserWarning: 
+    There is an imbalance between your GPUs. You may want to exclude GPU 0 which
+    has less than 75% of the memory or cores of GPU 1. You can do so by setting
+    the device_ids argument to DataParallel, or by setting the CUDA_VISIBLE_DEVICES
+    environment variable.
+  warnings.warn(imbalance_warn.format(device_ids[min_pos], device_ids[max_pos]))
+2024-08-02 10:29:25,711 - GNNTrainer - INFO - Model: 
+DataParallel(
+  (module): DynamicReductionNetwork(
+    (drn): RecursiveScriptModule(
+      original_name=DynamicReductionNetworkJit
+      (inputnetECAL): RecursiveScriptModule(
+        original_name=Sequential
+        (0): RecursiveScriptModule(original_name=Linear)
+        (1): RecursiveScriptModule(original_name=ELU)
+        (2): RecursiveScriptModule(original_name=Linear)
+        (3): RecursiveScriptModule(original_name=ELU)
+        (4): RecursiveScriptModule(original_name=Linear)
+        (5): RecursiveScriptModule(original_name=ELU)
+      )
+      (inputnetES): RecursiveScriptModule(
+        original_name=Sequential
+        (0): RecursiveScriptModule(original_name=Linear)
+        (1): RecursiveScriptModule(original_name=ELU)
+        (2): RecursiveScriptModule(original_name=Linear)
+        (3): RecursiveScriptModule(original_name=ELU)
+        (4): RecursiveScriptModule(original_name=Linear)
+        (5): RecursiveScriptModule(original_name=ELU)
+      )
+      (agg_layers): RecursiveScriptModule(
+        original_name=ModuleList
+        (0): RecursiveScriptModule(
+          original_name=EdgeConvJittable_fd4ad6
+          (aggr_module): RecursiveScriptModule(original_name=SumAggregation)
+          (nn): RecursiveScriptModule(
+            original_name=Sequential
+            (0): RecursiveScriptModule(original_name=Linear)
+            (1): RecursiveScriptModule(original_name=ELU)
+            (2): RecursiveScriptModule(original_name=Linear)
+            (3): RecursiveScriptModule(original_name=ELU)
+            (4): RecursiveScriptModule(original_name=Linear)
+            (5): RecursiveScriptModule(original_name=ELU)
+            (6): RecursiveScriptModule(original_name=Linear)
+            (7): RecursiveScriptModule(original_name=ELU)
+          )
+        )
+        (1): RecursiveScriptModule(
+          original_name=EdgeConvJittable_fd5299
+          (aggr_module): RecursiveScriptModule(original_name=SumAggregation)
+          (nn): RecursiveScriptModule(
+            original_name=Sequential
+            (0): RecursiveScriptModule(original_name=Linear)
+            (1): RecursiveScriptModule(original_name=ELU)
+            (2): RecursiveScriptModule(original_name=Linear)
+            (3): RecursiveScriptModule(original_name=ELU)
+            (4): RecursiveScriptModule(original_name=Linear)
+            (5): RecursiveScriptModule(original_name=ELU)
+            (6): RecursiveScriptModule(original_name=Linear)
+            (7): RecursiveScriptModule(original_name=ELU)
+          )
+        )
+      )
+      (output): RecursiveScriptModule(
+        original_name=Sequential
+        (0): RecursiveScriptModule(original_name=Linear)
+        (1): RecursiveScriptModule(original_name=ELU)
+        (2): RecursiveScriptModule(original_name=Linear)
+      )
+    )
+  )
+)
+Parameters: 544517
+2024-08-02 10:29:25,711 - GNNTrainer - INFO - Epoch 0
+/home/sosaha/miniconda3/envs/ml/lib/python3.10/site-packages/torch/cuda/memory.py:303: FutureWarning: torch.cuda.reset_max_memory_allocated now calls torch.cuda.reset_peak_memory_stats, which resets /all/ peak memory stats.
+  warnings.warn(
+datalen is 9683
+batch size is 100
+ES is yes and the number of features is 4
+Pooling with max
+Using self-loops
+There are 2 aggregation layers
+NUMBER OF CUDA CORES: 8
+<function abs_energy_fraction_loss at 0x7f86f077a050>
+  0%|          | 0/78 [00:00<?, ?it/s]  0%|          | 0/78 [00:04<?, ?it/s]
+Traceback (most recent call last):
+  File "/home/sosaha/DRN_ESEmbeddings/DRN/train", line 415, in <module>
+    trainer.train()
+  File "/home/sosaha/DRN_ESEmbeddings/DRN/Train.py", line 315, in train
+    self.trainSummary = trainer.train(
+  File "/home/sosaha/DRN_ESEmbeddings/DRN/training/base.py", line 102, in train
+    sum_train = self.train_epoch(train_data_loader)            
+  File "/home/sosaha/DRN_ESEmbeddings/DRN/training/gnn.py", line 172, in train_epoch
+    batch_loss = acc_norm * self.loss_func(batch_output,batch_target) 
+  File "/home/sosaha/DRN_ESEmbeddings/DRN/models/GravNet.py", line 174, in abs_energy_fraction_loss
+    loss = torch.sum((pred-truth)**2/(torch.abs(truth)+0.01))/batch_size
+RuntimeError: The size of tensor a (8) must match the size of tensor b (100) at non-singleton dimension 0
+
+################ TRAINING ARGUMENTS ###################
+folder: /home/sosaha/test
+data_folder: /home/sosaha/Extractor_for_Merged/10K_test_pickles
+idx_name: all
+target: trueE
+ES: yes
+coords: cart
+loop: True
+pool: mean
+predfile: pred.pickle
+in_layers: 3
+agg_layers: 2
+mp_layers: 4
+out_layers: 2
+hidden_dim: 128
+device: 0
+train_batches: 500
+train_batch_size: 100
+valid_batch_size: 100
+acc_rate: 1
+loss_func: abs_energy_fraction_loss
+num_classes: 1
+n_epochs: 50
+lr_sched: Const
+max_lr: 0.0001
+min_lr: 1e-07
+restart_period: 50
+gamma: None
+thresh: None
+reg: None
+epsilon: None
+minalpha: None
+warm: None
+semiparam: False
+graph_features: []
+#######################################################
+1937 valid points
+7746 train points
+loading in features...
+	Took 0.624 seconds
+loading in target...
+	Took 0.001 seconds
+Matching targets with features...
+  0%|          | 0/9683 [00:00<?, ?it/s] 14%|█▎        | 1310/9683 [00:00<00:00, 13097.08it/s] 28%|██▊       | 2670/9683 [00:00<00:00, 13390.02it/s] 42%|████▏     | 4026/9683 [00:00<00:00, 13466.36it/s] 56%|█████▌    | 5382/9683 [00:00<00:00, 13499.83it/s] 70%|██████▉   | 6737/9683 [00:00<00:00, 13517.54it/s] 84%|████████▎ | 8089/9683 [00:00<00:00, 13470.94it/s] 98%|█████████▊| 9448/9683 [00:00<00:00, 13509.31it/s]100%|██████████| 9683/9683 [00:00<00:00, 13474.01it/s]
+/home/sosaha/miniconda3/envs/ml/lib/python3.10/site-packages/torch_geometric/deprecation.py:22: UserWarning: 'data.DataLoader' is deprecated, use 'loader.DataLoader' instead
+  warnings.warn(out)
+datalen is 9683
+batch size is 100
+ES is yes and the number of features is 4
+Pooling with max
+Using self-loops
+There are 2 aggregation layers
+Traceback (most recent call last):
+  File "/home/sosaha/DRN_ESEmbeddings/DRN/train", line 415, in <module>
+    trainer.train()
+  File "/home/sosaha/DRN_ESEmbeddings/DRN/Train.py", line 287, in train
+    trainer.build_model(
+  File "/home/sosaha/DRN_ESEmbeddings/DRN/training/gnn.py", line 48, in build_model
+    self.model = get_model(name=name, actually_jit=True, **model_args).to(self.device)
+  File "/home/sosaha/DRN_ESEmbeddings/DRN/models/__init__.py", line 35, in get_model
+    return _models[name](**model_args)
+  File "/home/sosaha/DRN_ESEmbeddings/DRN/models/DynamicReductionNetwork.py", line 60, in __init__
+    self.drn = torch.jit.script(drn)
+  File "/home/sosaha/miniconda3/envs/ml/lib/python3.10/site-packages/torch/jit/_script.py", line 1284, in script
+    return torch.jit._recursive.create_script_module(
+  File "/home/sosaha/miniconda3/envs/ml/lib/python3.10/site-packages/torch/jit/_recursive.py", line 480, in create_script_module
+    return create_script_module_impl(nn_module, concrete_type, stubs_fn)
+  File "/home/sosaha/miniconda3/envs/ml/lib/python3.10/site-packages/torch/jit/_recursive.py", line 546, in create_script_module_impl
+    create_methods_and_properties_from_stubs(concrete_type, method_stubs, property_stubs)
+  File "/home/sosaha/miniconda3/envs/ml/lib/python3.10/site-packages/torch/jit/_recursive.py", line 397, in create_methods_and_properties_from_stubs
+    concrete_type._create_methods_and_properties(property_defs, property_rcbs, method_defs, method_rcbs, method_defaults)
+RuntimeError: 
+Arguments for call are not valid.
+The following variants are available:
+  
+  aten::tensor.float(float t, *, ScalarType? dtype=None, Device? device=None, bool requires_grad=False) -> Tensor:
+  Expected a value of type 'float' for argument 't' but instead found type 'Optional[Tensor]'.
+  
+  aten::tensor.int(int t, *, ScalarType? dtype=None, Device? device=None, bool requires_grad=False) -> Tensor:
+  Expected a value of type 'int' for argument 't' but instead found type 'Optional[Tensor]'.
+  
+  aten::tensor.bool(bool t, *, ScalarType? dtype=None, Device? device=None, bool requires_grad=False) -> Tensor:
+  Expected a value of type 'bool' for argument 't' but instead found type 'Optional[Tensor]'.
+  
+  aten::tensor.complex(complex t, *, ScalarType? dtype=None, Device? device=None, bool requires_grad=False) -> Tensor:
+  Expected a value of type 'complex' for argument 't' but instead found type 'Optional[Tensor]'.
+  
+  aten::tensor(t[] data, *, ScalarType? dtype=None, Device? device=None, bool requires_grad=False) -> Tensor:
+  Could not match type Optional[Tensor] to List[t] in argument 'data': Cannot match List[t] to Optional[Tensor].
+
+The original call is:
+  File "/home/sosaha/DRN_ESEmbeddings/DRN/models/DynamicReductionNetworkJit.py", line 253
+        else :
+            batch=None
+        batch = torch.tensor(batch)
+                ~~~~~~~~~~~~ <--- HERE
+    
+        batch, sort_idxs = torch.sort(batch)
+
+
+################ TRAINING ARGUMENTS ###################
+folder: /home/sosaha/test
+data_folder: /home/sosaha/Extractor_for_Merged/10K_test_pickles
+idx_name: all
+target: trueE
+ES: yes
+coords: cart
+loop: True
+pool: mean
+predfile: pred.pickle
+in_layers: 3
+agg_layers: 2
+mp_layers: 4
+out_layers: 2
+hidden_dim: 128
+device: 0
+train_batches: 500
+train_batch_size: 100
+valid_batch_size: 100
+acc_rate: 1
+loss_func: abs_energy_fraction_loss
+num_classes: 1
+n_epochs: 50
+lr_sched: Const
+max_lr: 0.0001
+min_lr: 1e-07
+restart_period: 50
+gamma: None
+thresh: None
+reg: None
+epsilon: None
+minalpha: None
+warm: None
+semiparam: False
+graph_features: []
+#######################################################
+1937 valid points
+7746 train points
+loading in features...
+	Took 0.645 seconds
+loading in target...
+	Took 0.001 seconds
+Matching targets with features...
+  0%|          | 0/9683 [00:00<?, ?it/s] 14%|█▍        | 1333/9683 [00:00<00:00, 13327.60it/s] 28%|██▊       | 2719/9683 [00:00<00:00, 13638.56it/s] 42%|████▏     | 4098/9683 [00:00<00:00, 13706.87it/s] 57%|█████▋    | 5478/9683 [00:00<00:00, 13742.77it/s] 71%|███████   | 6856/9683 [00:00<00:00, 13755.51it/s] 85%|████████▌ | 8232/9683 [00:00<00:00, 13703.09it/s] 99%|█████████▉| 9611/9683 [00:00<00:00, 13731.08it/s]100%|██████████| 9683/9683 [00:00<00:00, 13702.41it/s]
+/home/sosaha/miniconda3/envs/ml/lib/python3.10/site-packages/torch_geometric/deprecation.py:22: UserWarning: 'data.DataLoader' is deprecated, use 'loader.DataLoader' instead
+  warnings.warn(out)
+datalen is 9683
+batch size is 100
+ES is yes and the number of features is 4
+Pooling with max
+Using self-loops
+There are 2 aggregation layers
+Traceback (most recent call last):
+  File "/home/sosaha/DRN_ESEmbeddings/DRN/train", line 415, in <module>
+    trainer.train()
+  File "/home/sosaha/DRN_ESEmbeddings/DRN/Train.py", line 287, in train
+    trainer.build_model(
+  File "/home/sosaha/DRN_ESEmbeddings/DRN/training/gnn.py", line 48, in build_model
+    self.model = get_model(name=name, actually_jit=True, **model_args).to(self.device)
+  File "/home/sosaha/DRN_ESEmbeddings/DRN/models/__init__.py", line 35, in get_model
+    return _models[name](**model_args)
+  File "/home/sosaha/DRN_ESEmbeddings/DRN/models/DynamicReductionNetwork.py", line 60, in __init__
+    self.drn = torch.jit.script(drn)
+  File "/home/sosaha/miniconda3/envs/ml/lib/python3.10/site-packages/torch/jit/_script.py", line 1284, in script
+    return torch.jit._recursive.create_script_module(
+  File "/home/sosaha/miniconda3/envs/ml/lib/python3.10/site-packages/torch/jit/_recursive.py", line 480, in create_script_module
+    return create_script_module_impl(nn_module, concrete_type, stubs_fn)
+  File "/home/sosaha/miniconda3/envs/ml/lib/python3.10/site-packages/torch/jit/_recursive.py", line 546, in create_script_module_impl
+    create_methods_and_properties_from_stubs(concrete_type, method_stubs, property_stubs)
+  File "/home/sosaha/miniconda3/envs/ml/lib/python3.10/site-packages/torch/jit/_recursive.py", line 397, in create_methods_and_properties_from_stubs
+    concrete_type._create_methods_and_properties(property_defs, property_rcbs, method_defs, method_rcbs, method_defaults)
+RuntimeError: 
+Arguments for call are not valid.
+The following variants are available:
+  
+  aten::sort(Tensor self, int dim=-1, bool descending=False) -> (Tensor values, Tensor indices):
+  Expected a value of type 'Tensor' for argument 'self' but instead found type 'Optional[Tensor]'.
+  
+  aten::sort.stable(Tensor self, *, bool? stable, int dim=-1, bool descending=False) -> (Tensor values, Tensor indices):
+  Expected a value of type 'Tensor' for argument 'self' but instead found type 'Optional[Tensor]'.
+  
+  aten::sort.values_stable(Tensor self, *, bool? stable, int dim=-1, bool descending=False, Tensor(a!) values, Tensor(b!) indices) -> (Tensor(a!) values, Tensor(b!) indices):
+  Expected a value of type 'Tensor' for argument 'self' but instead found type 'Optional[Tensor]'.
+  
+  aten::sort.values(Tensor self, int dim=-1, bool descending=False, *, Tensor(a!) values, Tensor(b!) indices) -> (Tensor(a!) values, Tensor(b!) indices):
+  Expected a value of type 'Tensor' for argument 'self' but instead found type 'Optional[Tensor]'.
+  
+  aten::sort.dimname(Tensor self, str dim, bool descending=False) -> (Tensor values, Tensor indices):
+  Expected a value of type 'Tensor' for argument 'self' but instead found type 'Optional[Tensor]'.
+  
+  aten::sort.dimname_values(Tensor self, str dim, bool descending=False, *, Tensor(a!) values, Tensor(b!) indices) -> (Tensor(a!) values, Tensor(b!) indices):
+  Expected a value of type 'Tensor' for argument 'self' but instead found type 'Optional[Tensor]'.
+  
+  aten::sort.dimname_stable(Tensor self, *, bool? stable, str dim, bool descending=False) -> (Tensor values, Tensor indices):
+  Expected a value of type 'Tensor' for argument 'self' but instead found type 'Optional[Tensor]'.
+  
+  aten::sort.dimname_values_stable(Tensor self, *, bool? stable, str dim, bool descending=False, Tensor(a!) values, Tensor(b!) indices) -> (Tensor(a!) values, Tensor(b!) indices):
+  Expected a value of type 'Tensor' for argument 'self' but instead found type 'Optional[Tensor]'.
+  
+  aten::sort.int(int[](a!) self, bool reverse=False) -> ():
+  Expected a value of type 'List[int]' for argument 'self' but instead found type 'Optional[Tensor]'.
+  
+  aten::sort.float(float[](a!) self, bool reverse=False) -> ():
+  Expected a value of type 'List[float]' for argument 'self' but instead found type 'Optional[Tensor]'.
+  
+  aten::sort.Tensor(Tensor[](a!) self, bool reverse=False) -> ():
+  Expected a value of type 'List[Tensor]' for argument 'self' but instead found type 'Optional[Tensor]'.
+  
+  aten::sort.bool(bool[](a!) self, bool reverse=False) -> ():
+  Expected a value of type 'List[bool]' for argument 'self' but instead found type 'Optional[Tensor]'.
+  
+  aten::sort.str(str[](a!) self, bool reverse=False) -> ():
+  Expected a value of type 'List[str]' for argument 'self' but instead found type 'Optional[Tensor]'.
+  
+  aten::sort.any(t[](a!) self, bool reverse=False) -> ():
+  Could not match type Optional[Tensor] to List[t] in argument 'self': Cannot match List[t] to Optional[Tensor].
+
+The original call is:
+  File "/home/sosaha/DRN_ESEmbeddings/DRN/models/DynamicReductionNetworkJit.py", line 255
+        #batch = torch.tensor(batch)
+    
+        batch, sort_idxs = torch.sort(batch)
+                           ~~~~~~~~~~ <--- HERE
+        x = x[sort_idxs]
+        latent_probe = self.latent_probe
+
+
+################ TRAINING ARGUMENTS ###################
+folder: /home/sosaha/test
+data_folder: /home/sosaha/Extractor_for_Merged/10K_test_pickles
+idx_name: all
+target: trueE
+ES: yes
+coords: cart
+loop: True
+pool: mean
+predfile: pred.pickle
+in_layers: 3
+agg_layers: 2
+mp_layers: 4
+out_layers: 2
+hidden_dim: 128
+device: 0
+train_batches: 500
+train_batch_size: 100
+valid_batch_size: 100
+acc_rate: 1
+loss_func: abs_energy_fraction_loss
+num_classes: 1
+n_epochs: 50
+lr_sched: Const
+max_lr: 0.0001
+min_lr: 1e-07
+restart_period: 50
+gamma: None
+thresh: None
+reg: None
+epsilon: None
+minalpha: None
+warm: None
+semiparam: False
+graph_features: []
+#######################################################
+1937 valid points
+7746 train points
+loading in features...
+	Took 0.622 seconds
+loading in target...
+	Took 0.001 seconds
+Matching targets with features...
+  0%|          | 0/9683 [00:00<?, ?it/s] 14%|█▎        | 1327/9683 [00:00<00:00, 13262.46it/s] 28%|██▊       | 2703/9683 [00:00<00:00, 13550.58it/s] 42%|████▏     | 4059/9683 [00:00<00:00, 13043.80it/s] 56%|█████▌    | 5417/9683 [00:00<00:00, 13249.58it/s] 70%|███████   | 6787/9683 [00:00<00:00, 13406.99it/s] 84%|████████▍ | 8143/9683 [00:00<00:00, 13455.55it/s] 98%|█████████▊| 9519/9683 [00:00<00:00, 13552.68it/s]100%|██████████| 9683/9683 [00:00<00:00, 13429.05it/s]
+/home/sosaha/miniconda3/envs/ml/lib/python3.10/site-packages/torch_geometric/deprecation.py:22: UserWarning: 'data.DataLoader' is deprecated, use 'loader.DataLoader' instead
+  warnings.warn(out)
+datalen is 9683
+batch size is 100
+ES is yes and the number of features is 4
+Pooling with max
+Using self-loops
+There are 2 aggregation layers
+Traceback (most recent call last):
+  File "/home/sosaha/DRN_ESEmbeddings/DRN/train", line 415, in <module>
+    trainer.train()
+  File "/home/sosaha/DRN_ESEmbeddings/DRN/Train.py", line 287, in train
+    trainer.build_model(
+  File "/home/sosaha/DRN_ESEmbeddings/DRN/training/gnn.py", line 48, in build_model
+    self.model = get_model(name=name, actually_jit=True, **model_args).to(self.device)
+  File "/home/sosaha/DRN_ESEmbeddings/DRN/models/__init__.py", line 35, in get_model
+    return _models[name](**model_args)
+  File "/home/sosaha/DRN_ESEmbeddings/DRN/models/DynamicReductionNetwork.py", line 60, in __init__
+    self.drn = torch.jit.script(drn)
+  File "/home/sosaha/miniconda3/envs/ml/lib/python3.10/site-packages/torch/jit/_script.py", line 1284, in script
+    return torch.jit._recursive.create_script_module(
+  File "/home/sosaha/miniconda3/envs/ml/lib/python3.10/site-packages/torch/jit/_recursive.py", line 480, in create_script_module
+    return create_script_module_impl(nn_module, concrete_type, stubs_fn)
+  File "/home/sosaha/miniconda3/envs/ml/lib/python3.10/site-packages/torch/jit/_recursive.py", line 546, in create_script_module_impl
+    create_methods_and_properties_from_stubs(concrete_type, method_stubs, property_stubs)
+  File "/home/sosaha/miniconda3/envs/ml/lib/python3.10/site-packages/torch/jit/_recursive.py", line 397, in create_methods_and_properties_from_stubs
+    concrete_type._create_methods_and_properties(property_defs, property_rcbs, method_defs, method_rcbs, method_defaults)
+RuntimeError: 
+Arguments for call are not valid.
+The following variants are available:
+  
+  aten::sort(Tensor self, int dim=-1, bool descending=False) -> (Tensor values, Tensor indices):
+  Expected a value of type 'Tensor' for argument 'self' but instead found type 'Optional[Tensor]'.
+  
+  aten::sort.stable(Tensor self, *, bool? stable, int dim=-1, bool descending=False) -> (Tensor values, Tensor indices):
+  Expected a value of type 'Tensor' for argument 'self' but instead found type 'Optional[Tensor]'.
+  
+  aten::sort.values_stable(Tensor self, *, bool? stable, int dim=-1, bool descending=False, Tensor(a!) values, Tensor(b!) indices) -> (Tensor(a!) values, Tensor(b!) indices):
+  Expected a value of type 'Tensor' for argument 'self' but instead found type 'Optional[Tensor]'.
+  
+  aten::sort.values(Tensor self, int dim=-1, bool descending=False, *, Tensor(a!) values, Tensor(b!) indices) -> (Tensor(a!) values, Tensor(b!) indices):
+  Expected a value of type 'Tensor' for argument 'self' but instead found type 'Optional[Tensor]'.
+  
+  aten::sort.dimname(Tensor self, str dim, bool descending=False) -> (Tensor values, Tensor indices):
+  Expected a value of type 'Tensor' for argument 'self' but instead found type 'Optional[Tensor]'.
+  
+  aten::sort.dimname_values(Tensor self, str dim, bool descending=False, *, Tensor(a!) values, Tensor(b!) indices) -> (Tensor(a!) values, Tensor(b!) indices):
+  Expected a value of type 'Tensor' for argument 'self' but instead found type 'Optional[Tensor]'.
+  
+  aten::sort.dimname_stable(Tensor self, *, bool? stable, str dim, bool descending=False) -> (Tensor values, Tensor indices):
+  Expected a value of type 'Tensor' for argument 'self' but instead found type 'Optional[Tensor]'.
+  
+  aten::sort.dimname_values_stable(Tensor self, *, bool? stable, str dim, bool descending=False, Tensor(a!) values, Tensor(b!) indices) -> (Tensor(a!) values, Tensor(b!) indices):
+  Expected a value of type 'Tensor' for argument 'self' but instead found type 'Optional[Tensor]'.
+  
+  aten::sort.int(int[](a!) self, bool reverse=False) -> ():
+  Expected a value of type 'List[int]' for argument 'self' but instead found type 'Optional[Tensor]'.
+  
+  aten::sort.float(float[](a!) self, bool reverse=False) -> ():
+  Expected a value of type 'List[float]' for argument 'self' but instead found type 'Optional[Tensor]'.
+  
+  aten::sort.Tensor(Tensor[](a!) self, bool reverse=False) -> ():
+  Expected a value of type 'List[Tensor]' for argument 'self' but instead found type 'Optional[Tensor]'.
+  
+  aten::sort.bool(bool[](a!) self, bool reverse=False) -> ():
+  Expected a value of type 'List[bool]' for argument 'self' but instead found type 'Optional[Tensor]'.
+  
+  aten::sort.str(str[](a!) self, bool reverse=False) -> ():
+  Expected a value of type 'List[str]' for argument 'self' but instead found type 'Optional[Tensor]'.
+  
+  aten::sort.any(t[](a!) self, bool reverse=False) -> ():
+  Could not match type Optional[Tensor] to List[t] in argument 'self': Cannot match List[t] to Optional[Tensor].
+
+The original call is:
+  File "/home/sosaha/DRN_ESEmbeddings/DRN/models/DynamicReductionNetworkJit.py", line 256
+        #batch = torch.tensor(batch)
+    
+        batch, sort_idxs = torch.sort(batch)
+                           ~~~~~~~~~~ <--- HERE
+        x = x[sort_idxs]
+        latent_probe = self.latent_probe
+
+
+################ TRAINING ARGUMENTS ###################
+folder: /home/sosaha/test
+data_folder: /home/sosaha/Extractor_for_Merged/10K_test_pickles
+idx_name: all
+target: trueE
+ES: yes
+coords: cart
+loop: True
+pool: mean
+predfile: pred.pickle
+in_layers: 3
+agg_layers: 2
+mp_layers: 4
+out_layers: 2
+hidden_dim: 128
+device: 0
+train_batches: 500
+train_batch_size: 100
+valid_batch_size: 100
+acc_rate: 1
+loss_func: abs_energy_fraction_loss
+num_classes: 1
+n_epochs: 50
+lr_sched: Const
+max_lr: 0.0001
+min_lr: 1e-07
+restart_period: 50
+gamma: None
+thresh: None
+reg: None
+epsilon: None
+minalpha: None
+warm: None
+semiparam: False
+graph_features: []
+#######################################################
+1937 valid points
+7746 train points
+loading in features...
+	Took 0.606 seconds
+loading in target...
+	Took 0.000 seconds
+Matching targets with features...
+  0%|          | 0/9683 [00:00<?, ?it/s] 14%|█▎        | 1316/9683 [00:00<00:00, 13155.12it/s] 28%|██▊       | 2698/9683 [00:00<00:00, 13545.34it/s] 42%|████▏     | 4070/9683 [00:00<00:00, 13621.75it/s] 56%|█████▌    | 5438/9683 [00:00<00:00, 13643.54it/s] 70%|███████   | 6814/9683 [00:00<00:00, 13684.85it/s] 85%|████████▍ | 8183/9683 [00:00<00:00, 13648.29it/s] 99%|█████████▊| 9560/9683 [00:00<00:00, 13685.92it/s]100%|██████████| 9683/9683 [00:00<00:00, 13633.87it/s]
+/home/sosaha/miniconda3/envs/ml/lib/python3.10/site-packages/torch_geometric/deprecation.py:22: UserWarning: 'data.DataLoader' is deprecated, use 'loader.DataLoader' instead
+  warnings.warn(out)
+datalen is 9683
+batch size is 100
+ES is yes and the number of features is 4
+Pooling with max
+Using self-loops
+There are 2 aggregation layers
+Traceback (most recent call last):
+  File "/home/sosaha/DRN_ESEmbeddings/DRN/train", line 415, in <module>
+    trainer.train()
+  File "/home/sosaha/DRN_ESEmbeddings/DRN/Train.py", line 287, in train
+    trainer.build_model(
+  File "/home/sosaha/DRN_ESEmbeddings/DRN/training/gnn.py", line 48, in build_model
+    self.model = get_model(name=name, actually_jit=True, **model_args).to(self.device)
+  File "/home/sosaha/DRN_ESEmbeddings/DRN/models/__init__.py", line 35, in get_model
+    return _models[name](**model_args)
+  File "/home/sosaha/DRN_ESEmbeddings/DRN/models/DynamicReductionNetwork.py", line 60, in __init__
+    self.drn = torch.jit.script(drn)
+  File "/home/sosaha/miniconda3/envs/ml/lib/python3.10/site-packages/torch/jit/_script.py", line 1284, in script
+    return torch.jit._recursive.create_script_module(
+  File "/home/sosaha/miniconda3/envs/ml/lib/python3.10/site-packages/torch/jit/_recursive.py", line 480, in create_script_module
+    return create_script_module_impl(nn_module, concrete_type, stubs_fn)
+  File "/home/sosaha/miniconda3/envs/ml/lib/python3.10/site-packages/torch/jit/_recursive.py", line 546, in create_script_module_impl
+    create_methods_and_properties_from_stubs(concrete_type, method_stubs, property_stubs)
+  File "/home/sosaha/miniconda3/envs/ml/lib/python3.10/site-packages/torch/jit/_recursive.py", line 397, in create_methods_and_properties_from_stubs
+    concrete_type._create_methods_and_properties(property_defs, property_rcbs, method_defs, method_rcbs, method_defaults)
+RuntimeError: 
+Unknown builtin op: aten::Tensor.
+Here are some suggestions: 
+	aten::tensor
+
+The original call is:
+  File "/home/sosaha/DRN_ESEmbeddings/DRN/models/DynamicReductionNetworkJit.py", line 255
+            batch=None
+        #batch = torch.tensor(batch)
+        batch - torch.Tensor(batch)
+                ~~~~~~~~~~~~ <--- HERE
+        batch, sort_idxs = torch.sort(batch)
+        x = x[sort_idxs]
+
+
+################ TRAINING ARGUMENTS ###################
+folder: /home/sosaha/test
+data_folder: /home/sosaha/Extractor_for_Merged/10K_test_pickles
+idx_name: all
+target: trueE
+ES: yes
+coords: cart
+loop: True
+pool: mean
+predfile: pred.pickle
+in_layers: 3
+agg_layers: 2
+mp_layers: 4
+out_layers: 2
+hidden_dim: 128
+device: 0
+train_batches: 500
+train_batch_size: 100
+valid_batch_size: 100
+acc_rate: 1
+loss_func: abs_energy_fraction_loss
+num_classes: 1
+n_epochs: 50
+lr_sched: Const
+max_lr: 0.0001
+min_lr: 1e-07
+restart_period: 50
+gamma: None
+thresh: None
+reg: None
+epsilon: None
+minalpha: None
+warm: None
+semiparam: False
+graph_features: []
+#######################################################
+1937 valid points
+7746 train points
+loading in features...
+	Took 0.627 seconds
+loading in target...
+	Took 0.001 seconds
+Matching targets with features...
+  0%|          | 0/9683 [00:00<?, ?it/s] 14%|█▎        | 1327/9683 [00:00<00:00, 13260.91it/s] 28%|██▊       | 2698/9683 [00:00<00:00, 13523.17it/s] 42%|████▏     | 4069/9683 [00:00<00:00, 13608.16it/s] 56%|█████▌    | 5441/9683 [00:00<00:00, 13648.64it/s] 70%|███████   | 6815/9683 [00:00<00:00, 13677.96it/s] 85%|████████▍ | 8183/9683 [00:00<00:00, 13627.05it/s] 99%|█████████▊| 9560/9683 [00:00<00:00, 13673.20it/s]100%|██████████| 9683/9683 [00:00<00:00, 13626.98it/s]
+/home/sosaha/miniconda3/envs/ml/lib/python3.10/site-packages/torch_geometric/deprecation.py:22: UserWarning: 'data.DataLoader' is deprecated, use 'loader.DataLoader' instead
+  warnings.warn(out)
+datalen is 9683
+batch size is 100
+ES is yes and the number of features is 4
+Pooling with max
+Using self-loops
+There are 2 aggregation layers
+Traceback (most recent call last):
+  File "/home/sosaha/DRN_ESEmbeddings/DRN/train", line 415, in <module>
+    trainer.train()
+  File "/home/sosaha/DRN_ESEmbeddings/DRN/Train.py", line 287, in train
+    trainer.build_model(
+  File "/home/sosaha/DRN_ESEmbeddings/DRN/training/gnn.py", line 48, in build_model
+    self.model = get_model(name=name, actually_jit=True, **model_args).to(self.device)
+  File "/home/sosaha/DRN_ESEmbeddings/DRN/models/__init__.py", line 35, in get_model
+    return _models[name](**model_args)
+  File "/home/sosaha/DRN_ESEmbeddings/DRN/models/DynamicReductionNetwork.py", line 60, in __init__
+    self.drn = torch.jit.script(drn)
+  File "/home/sosaha/miniconda3/envs/ml/lib/python3.10/site-packages/torch/jit/_script.py", line 1284, in script
+    return torch.jit._recursive.create_script_module(
+  File "/home/sosaha/miniconda3/envs/ml/lib/python3.10/site-packages/torch/jit/_recursive.py", line 480, in create_script_module
+    return create_script_module_impl(nn_module, concrete_type, stubs_fn)
+  File "/home/sosaha/miniconda3/envs/ml/lib/python3.10/site-packages/torch/jit/_recursive.py", line 546, in create_script_module_impl
+    create_methods_and_properties_from_stubs(concrete_type, method_stubs, property_stubs)
+  File "/home/sosaha/miniconda3/envs/ml/lib/python3.10/site-packages/torch/jit/_recursive.py", line 397, in create_methods_and_properties_from_stubs
+    concrete_type._create_methods_and_properties(property_defs, property_rcbs, method_defs, method_rcbs, method_defaults)
+RuntimeError: 
+Arguments for call are not valid.
+The following variants are available:
+  
+  aten::tensor.float(float t, *, ScalarType? dtype=None, Device? device=None, bool requires_grad=False) -> Tensor:
+  Expected a value of type 'float' for argument 't' but instead found type 'Optional[Tensor]'.
+  
+  aten::tensor.int(int t, *, ScalarType? dtype=None, Device? device=None, bool requires_grad=False) -> Tensor:
+  Expected a value of type 'int' for argument 't' but instead found type 'Optional[Tensor]'.
+  
+  aten::tensor.bool(bool t, *, ScalarType? dtype=None, Device? device=None, bool requires_grad=False) -> Tensor:
+  Expected a value of type 'bool' for argument 't' but instead found type 'Optional[Tensor]'.
+  
+  aten::tensor.complex(complex t, *, ScalarType? dtype=None, Device? device=None, bool requires_grad=False) -> Tensor:
+  Expected a value of type 'complex' for argument 't' but instead found type 'Optional[Tensor]'.
+  
+  aten::tensor(t[] data, *, ScalarType? dtype=None, Device? device=None, bool requires_grad=False) -> Tensor:
+  Could not match type Optional[Tensor] to List[t] in argument 'data': Cannot match List[t] to Optional[Tensor].
+
+The original call is:
+  File "/home/sosaha/DRN_ESEmbeddings/DRN/models/DynamicReductionNetworkJit.py", line 255
+            batch=None
+        #batch = torch.tensor(batch)
+        batch - torch.tensor(batch)
+                ~~~~~~~~~~~~ <--- HERE
+        batch, sort_idxs = torch.sort(batch)
+        x = x[sort_idxs]
+
+
+################ TRAINING ARGUMENTS ###################
+folder: /home/sosaha/test
+data_folder: /home/sosaha/Extractor_for_Merged/10K_test_pickles
+idx_name: all
+target: trueE
+ES: yes
+coords: cart
+loop: True
+pool: mean
+predfile: pred.pickle
+in_layers: 3
+agg_layers: 2
+mp_layers: 4
+out_layers: 2
+hidden_dim: 128
+device: 0
+train_batches: 500
+train_batch_size: 100
+valid_batch_size: 100
+acc_rate: 1
+loss_func: abs_energy_fraction_loss
+num_classes: 1
+n_epochs: 50
+lr_sched: Const
+max_lr: 0.0001
+min_lr: 1e-07
+restart_period: 50
+gamma: None
+thresh: None
+reg: None
+epsilon: None
+minalpha: None
+warm: None
+semiparam: False
+graph_features: []
+#######################################################
+1937 valid points
+7746 train points
+loading in features...
+	Took 0.632 seconds
+loading in target...
+	Took 0.001 seconds
+Matching targets with features...
+  0%|          | 0/9683 [00:00<?, ?it/s] 14%|█▍        | 1335/9683 [00:00<00:00, 13346.96it/s] 28%|██▊       | 2722/9683 [00:00<00:00, 13649.27it/s] 42%|████▏     | 4101/9683 [00:00<00:00, 13710.41it/s] 57%|█████▋    | 5482/9683 [00:00<00:00, 13747.47it/s] 71%|███████   | 6862/9683 [00:00<00:00, 13766.18it/s] 85%|████████▌ | 8239/9683 [00:00<00:00, 13718.93it/s] 99%|█████████▉| 9631/9683 [00:00<00:00, 13782.45it/s]100%|██████████| 9683/9683 [00:00<00:00, 13727.70it/s]
+/home/sosaha/miniconda3/envs/ml/lib/python3.10/site-packages/torch_geometric/deprecation.py:22: UserWarning: 'data.DataLoader' is deprecated, use 'loader.DataLoader' instead
+  warnings.warn(out)
+/home/sosaha/miniconda3/envs/ml/lib/python3.10/site-packages/torch/nn/parallel/data_parallel.py:32: UserWarning: 
+    There is an imbalance between your GPUs. You may want to exclude GPU 0 which
+    has less than 75% of the memory or cores of GPU 1. You can do so by setting
+    the device_ids argument to DataParallel, or by setting the CUDA_VISIBLE_DEVICES
+    environment variable.
+  warnings.warn(imbalance_warn.format(device_ids[min_pos], device_ids[max_pos]))
+2024-08-02 10:53:07,838 - GNNTrainer - INFO - Model: 
+DataParallel(
+  (module): DynamicReductionNetwork(
+    (drn): RecursiveScriptModule(
+      original_name=DynamicReductionNetworkJit
+      (inputnetECAL): RecursiveScriptModule(
+        original_name=Sequential
+        (0): RecursiveScriptModule(original_name=Linear)
+        (1): RecursiveScriptModule(original_name=ELU)
+        (2): RecursiveScriptModule(original_name=Linear)
+        (3): RecursiveScriptModule(original_name=ELU)
+        (4): RecursiveScriptModule(original_name=Linear)
+        (5): RecursiveScriptModule(original_name=ELU)
+      )
+      (inputnetES): RecursiveScriptModule(
+        original_name=Sequential
+        (0): RecursiveScriptModule(original_name=Linear)
+        (1): RecursiveScriptModule(original_name=ELU)
+        (2): RecursiveScriptModule(original_name=Linear)
+        (3): RecursiveScriptModule(original_name=ELU)
+        (4): RecursiveScriptModule(original_name=Linear)
+        (5): RecursiveScriptModule(original_name=ELU)
+      )
+      (agg_layers): RecursiveScriptModule(
+        original_name=ModuleList
+        (0): RecursiveScriptModule(
+          original_name=EdgeConvJittable_4cf23a
+          (aggr_module): RecursiveScriptModule(original_name=SumAggregation)
+          (nn): RecursiveScriptModule(
+            original_name=Sequential
+            (0): RecursiveScriptModule(original_name=Linear)
+            (1): RecursiveScriptModule(original_name=ELU)
+            (2): RecursiveScriptModule(original_name=Linear)
+            (3): RecursiveScriptModule(original_name=ELU)
+            (4): RecursiveScriptModule(original_name=Linear)
+            (5): RecursiveScriptModule(original_name=ELU)
+            (6): RecursiveScriptModule(original_name=Linear)
+            (7): RecursiveScriptModule(original_name=ELU)
+          )
+        )
+        (1): RecursiveScriptModule(
+          original_name=EdgeConvJittable_4cf9ff
+          (aggr_module): RecursiveScriptModule(original_name=SumAggregation)
+          (nn): RecursiveScriptModule(
+            original_name=Sequential
+            (0): RecursiveScriptModule(original_name=Linear)
+            (1): RecursiveScriptModule(original_name=ELU)
+            (2): RecursiveScriptModule(original_name=Linear)
+            (3): RecursiveScriptModule(original_name=ELU)
+            (4): RecursiveScriptModule(original_name=Linear)
+            (5): RecursiveScriptModule(original_name=ELU)
+            (6): RecursiveScriptModule(original_name=Linear)
+            (7): RecursiveScriptModule(original_name=ELU)
+          )
+        )
+      )
+      (output): RecursiveScriptModule(
+        original_name=Sequential
+        (0): RecursiveScriptModule(original_name=Linear)
+        (1): RecursiveScriptModule(original_name=ELU)
+        (2): RecursiveScriptModule(original_name=Linear)
+      )
+    )
+  )
+)
+Parameters: 544517
+2024-08-02 10:53:07,839 - GNNTrainer - INFO - Epoch 0
+/home/sosaha/miniconda3/envs/ml/lib/python3.10/site-packages/torch/cuda/memory.py:303: FutureWarning: torch.cuda.reset_max_memory_allocated now calls torch.cuda.reset_peak_memory_stats, which resets /all/ peak memory stats.
+  warnings.warn(
+datalen is 9683
+batch size is 100
+ES is yes and the number of features is 4
+Pooling with max
+Using self-loops
+There are 2 aggregation layers
+NUMBER OF CUDA CORES: 8
+<function abs_energy_fraction_loss at 0x7f44c0a020e0>
+  0%|          | 0/78 [00:00<?, ?it/s]  0%|          | 0/78 [00:04<?, ?it/s]
+Traceback (most recent call last):
+  File "/home/sosaha/DRN_ESEmbeddings/DRN/train", line 415, in <module>
+    trainer.train()
+  File "/home/sosaha/DRN_ESEmbeddings/DRN/Train.py", line 315, in train
+    self.trainSummary = trainer.train(
+  File "/home/sosaha/DRN_ESEmbeddings/DRN/training/base.py", line 102, in train
+    sum_train = self.train_epoch(train_data_loader)            
+  File "/home/sosaha/DRN_ESEmbeddings/DRN/training/gnn.py", line 172, in train_epoch
+    batch_loss = acc_norm * self.loss_func(batch_output,batch_target) 
+  File "/home/sosaha/DRN_ESEmbeddings/DRN/models/GravNet.py", line 174, in abs_energy_fraction_loss
+    loss = torch.sum((pred-truth)**2/(torch.abs(truth)+0.01))/batch_size
+RuntimeError: The size of tensor a (8) must match the size of tensor b (100) at non-singleton dimension 0
+
